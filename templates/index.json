@@ -143,7 +143,7 @@
         "slide_height": 600,
         "loop": true,
         "autoplay": true,
-        "autoplay_delay": 5,
+        "autoplay_delay": 3,
         "transition_speed": 500
       }
     },
