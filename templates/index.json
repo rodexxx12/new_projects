@@ -141,8 +141,8 @@
         "accessibility_label": "Featured products",
         "section_width": "full-width",
         "slide_height": 600,
-        "loop": true,
-        "autoplay": true,
+        "loop": false,
+        "autoplay": false,
         "autoplay_delay": 3,
         "transition_speed": 200
       }
