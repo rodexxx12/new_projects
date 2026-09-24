@@ -91,6 +91,34 @@
         "padding-block-end": 72
       }
     },
+    "swiper_slideshow": {
+      "type": "swiper",
+      "name": "Swiper slideshow",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "heading": "Featured products",
+            "text": "<p>Discover our latest collection.</p>",
+            "button_label": "Shop all",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "slide_1"
+      ],
+      "settings": {
+        "accessibility_label": "Featured products",
+        "section_width": "full-width",
+        "slide_height": 600,
+        "loop": true,
+        "autoplay": false,
+        "autoplay_delay": 5,
+        "transition_speed": 500
+      }
+    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -280,6 +308,7 @@
   },
   "order": [
     "hero_jVaWmY",
+    "swiper_slideshow",
     "product_list_fa6P9H"
   ]
 }
