@@ -93,7 +93,7 @@
     },
     "swiper_slideshow": {
       "type": "swiper",
-      "name": "Swiper slideshow",
+      "name": "Swiper",
       "blocks": {
         "slide_1": {
           "type": "slide",
