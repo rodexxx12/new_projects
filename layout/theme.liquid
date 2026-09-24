@@ -19,7 +19,8 @@
 
     {%- render 'meta-tags' -%}
     {%- render 'stylesheets' -%}
-    {{ 'swiper-library.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper-custom.css' | asset_url | stylesheet_tag }}
     {%- render 'card-hover-effect-styles' -%}
     {%- render 'fonts' -%}
     {%- render 'scripts' -%}
@@ -174,7 +175,6 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
-    <script src="{{ 'swiper-library.js' | asset_url }}" defer></script>
-    <script src="{{ 'swiper-section.js' | asset_url }}" defer></script>
+    <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
   </body>
 </html>
