@@ -342,6 +342,7 @@
   class="{{ class }}"
   data-theme-color="rgb({{ section.settings.background_color_top.rgb | default: settings.page_background_color.rgb }})"
   data-bubble-style="{{ section.settings.bubble_style }}"
+  data-floating-header
   {% if transparent %}
     transparent="{{ transparent }}"
   {% endif %}
@@ -629,6 +630,53 @@
   .header-section {
     position: relative;
     z-index: var(--layer-menu-drawer);
+  }
+
+  /* Keep the existing header in normal flow until it reaches the top, then
+     let the same section stay visible while its outer container compacts. */
+  #header-group:has(#header-component[data-floating-header]) {
+    display: contents;
+  }
+
+  body #header-group > .header-section:has(> #header-component[data-floating-header]) {
+    position: sticky;
+    top: 0;
+    z-index: var(--layer-menu-drawer);
+    transition: top 0.3s ease;
+  }
+
+  body #header-group > .header-section:has(> #header-component[data-floating-state='scrolled']) {
+    top: 12px;
+  }
+
+  #header-component[data-floating-header] {
+    width: 100%;
+    margin-inline: auto;
+    border-radius: 0;
+    box-shadow: none;
+    transition: width 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  #header-component[data-floating-header] .header__underlay-closed {
+    border-radius: inherit;
+  }
+
+  #header-component[data-floating-state='scrolled'] {
+    width: calc(100% - 32px);
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgb(0 0 0 / 12%);
+  }
+
+  #header-component[data-floating-state='scrolled'] .header__columns {
+    --padding-block-start: var(--padding-2xs);
+    --padding-block-end: var(--padding-2xs);
+  }
+
+  @media screen and (max-width: 749px) {
+    #header-component[data-floating-state='scrolled'] {
+      width: calc(100% - 16px);
+      border-radius: 14px;
+    }
   }
 
   /* need default values for non-flash transitions on first overflow menu open */

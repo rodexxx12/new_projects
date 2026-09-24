@@ -147,7 +147,8 @@ class HeaderComponent extends Component {
    */
   #handleBreakpointChange = () => {
     const stickyMode = this.getAttribute('sticky');
-    if (!stickyMode) return;
+    const hasFloatingHeader = this.hasAttribute('data-floating-header');
+    if (!stickyMode && !hasFloatingHeader) return;
 
     // Rebind scroll listener
     if (this.#scrollContainer) {
@@ -159,7 +160,7 @@ class HeaderComponent extends Component {
     // Recreate IntersectionObserver with the new root
     this.#intersectionObserver?.disconnect();
     this.#intersectionObserver = null;
-    this.#observeStickyPosition(stickyMode === 'always');
+    if (stickyMode) this.#observeStickyPosition(stickyMode === 'always');
   };
 
   #handleWindowScroll = () => {
@@ -173,9 +174,14 @@ class HeaderComponent extends Component {
 
   #updateScrollState = () => {
     const stickyMode = this.getAttribute('sticky');
-    if (!this.#offscreen && stickyMode !== 'always') return;
-
     const scrollTop = getScrollTop();
+
+    if (this.hasAttribute('data-floating-header')) {
+      this.dataset.floatingState = scrollTop > 0 ? 'scrolled' : 'top';
+    }
+
+    if (!stickyMode || (!this.#offscreen && stickyMode !== 'always')) return;
+
     const headerTop = this.getBoundingClientRect().top;
     const isScrollingUp = scrollTop < this.#lastScrollTop;
     const isAtTop = headerTop >= 0;
@@ -227,15 +233,19 @@ class HeaderComponent extends Component {
     this.addEventListener('overflowMinimum', this.#handleOverflowMinimum);
 
     const stickyMode = this.getAttribute('sticky');
+    const hasFloatingHeader = this.hasAttribute('data-floating-header');
     if (stickyMode) {
       this.#observeStickyPosition(stickyMode === 'always');
-
-      if (stickyMode === 'scroll-up' || stickyMode === 'always') {
-        this.#scrollContainer = getScrollEventTarget();
-        this.#scrollContainer.addEventListener('scroll', this.#handleWindowScroll);
-      }
-
+    }
+    if (hasFloatingHeader || stickyMode === 'scroll-up' || stickyMode === 'always') {
+      this.#scrollContainer = getScrollEventTarget();
+      this.#scrollContainer.addEventListener('scroll', this.#handleWindowScroll);
+    }
+    if (stickyMode || hasFloatingHeader) {
       scrollContainerMediaQuery.addEventListener('change', this.#handleBreakpointChange);
+    }
+    if (hasFloatingHeader) {
+      this.#updateScrollState();
     }
   }
 
