@@ -144,7 +144,7 @@
         "loop": true,
         "autoplay": true,
         "autoplay_delay": 3,
-        "transition_speed": 500
+        "transition_speed": 200
       }
     },
     "product_list_fa6P9H": {
