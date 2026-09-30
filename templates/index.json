@@ -94,59 +94,6 @@
         "padding-block-end": 72
       }
     },
-    "swiper_slideshow": {
-      "type": "swiper",
-      "blocks": {
-        "slide_hWpNV3": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/small-business-interior.jpg",
-            "heading": "Slide heading",
-            "text": "<p>Share a message with your customers.</p>",
-            "button_label": "",
-            "link": "",
-            "open_in_new_tab": false
-          }
-        },
-        "slide_wcxaVx": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/person-fishing-on-the-beach-is-silhouetted-at-sunset.jpg",
-            "heading": "Slide heading",
-            "text": "<p>Share a message with your customers.</p>",
-            "button_label": "",
-            "link": "",
-            "open_in_new_tab": false
-          }
-        },
-        "slide_1": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/Main_b13ad453-477c-4ed1-9b43-81f3345adfd6.jpg",
-            "heading": "Featured products",
-            "text": "<p>Discover our latest collection.</p>",
-            "button_label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false
-          }
-        }
-      },
-      "block_order": [
-        "slide_hWpNV3",
-        "slide_wcxaVx",
-        "slide_1"
-      ],
-      "name": "Swiper",
-      "settings": {
-        "accessibility_label": "Featured products",
-        "section_width": "full-width",
-        "slide_height": 600,
-        "loop": false,
-        "autoplay": false,
-        "autoplay_delay": 3,
-        "transition_speed": 200
-      }
-    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -252,6 +199,32 @@
             "padding-inline-end": 0
           },
           "blocks": {
+            "text_tnekLk": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>{{ closest.product.metafields.custom.test_field.value }}</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "product_card_gallery_677WP3": {
               "type": "_product-card-gallery",
               "name": "t:names.product_card_media",
@@ -319,6 +292,7 @@
             }
           },
           "block_order": [
+            "text_tnekLk",
             "product_card_gallery_677WP3",
             "product_title_YXxMTj",
             "price_JQzVV4"
@@ -349,7 +323,6 @@
   },
   "order": [
     "hero_jVaWmY",
-    "swiper_slideshow",
     "product_list_fa6P9H"
   ]
 }
