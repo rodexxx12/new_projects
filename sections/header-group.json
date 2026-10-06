@@ -46,7 +46,7 @@
       "name": "t:names.marquee_section",
       "settings": {
         "movement_direction": "normal",
-        "background_color": "#838181",
+        "background_color": "#880B0B",
         "padding-block-start": 12,
         "padding-block-end": 12,
         "gap_between_elements": 12
