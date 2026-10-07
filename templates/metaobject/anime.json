@@ -215,7 +215,7 @@
         "image_CQCQxy": {
           "type": "image",
           "settings": {
-            "image": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"].image.value }}",
+            "image": "{{ closest.metaobject.anime.image.value }}",
             "link": "",
             "image_ratio": "square",
             "width": "fill",
@@ -278,7 +278,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h2>{{ metaobjects.anime[\"thunder-breathing-swordsman\"].title.value }}</h2>",
+                "text": "<h2>{{ closest.metaobject.anime.title.value }}</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -304,7 +304,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>{{ metaobjects.anime[\"thunder-breathing-swordsman\"].name.value }}</p>",
+                "text": "<p>{{ closest.metaobject.anime.name.value }}</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -329,7 +329,7 @@
             "text_yCAjfB": {
               "type": "text",
               "settings": {
-                "text": "<p>{{ metaobjects.anime[\"thunder-breathing-swordsman\"].description | metafield_tag }}</p>",
+                "text": "<p>{{ closest.metaobject.anime.description | metafield_tag }}</p>",
                 "width": "fit-content",
                 "max_width": "narrow",
                 "alignment": "left",
