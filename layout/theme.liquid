@@ -14,9 +14,10 @@
         href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
       >
     {%- endif -%}
-
+    
+{{ 'swiper-slider.css' | asset_url | stylesheet_tag }}
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
     {%- render 'view-transition-opt-in' -%}
-    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
     {%- render 'meta-tags' -%}
     {%- render 'stylesheets' -%}
     {%- render 'card-hover-effect-styles' -%}
@@ -34,7 +35,6 @@
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
-
     {% render 'chat-drawer' %}
 
     <div class="page-wrapper">
@@ -174,5 +174,6 @@
       {% render 'quick-add-modal' %}
     {% endif %}
     <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'swiper-slider.js' | asset_url }}" defer></script>
   </body>
 </html>

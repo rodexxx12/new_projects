@@ -8,8 +8,6 @@
     mobile: 1,
     space: 15
   };
-  var waiting = new WeakSet();
-
   function numberValue(value, fallback, min, max) {
     var number = Number(value);
     if (!Number.isFinite(number)) return fallback;
@@ -25,26 +23,11 @@
   function initSlider(el) {
     if (!el) return;
     if (!window.Swiper) {
-      if (!waiting.has(el)) {
-        waiting.add(el);
-        var attempts = 0;
-        var timer = window.setInterval(function () {
-          attempts += 1;
-          if (window.Swiper) {
-            window.clearInterval(timer);
-            waiting.delete(el);
-            initSlider(el);
-          } else if (attempts >= 100) {
-            window.clearInterval(timer);
-            waiting.delete(el);
-            console.error('Swiper Slider: Swiper.js did not load. Check the Swiper CDN request in Network.');
-          }
-        }, 100);
-      }
+      console.error('Swiper Slider: Swiper.js is unavailable. Check that swiper-bundle.min.js loaded before swiper-slider.js.');
       return;
     }
 
-    if (el.swiper) el.swiper.destroy(true, true);
+    if (el.swiper) return;
 
     var data = el.dataset || {};
     var slides = el.querySelectorAll('.swiper-slide').length;
@@ -92,6 +75,19 @@
     if (root.querySelectorAll) root.querySelectorAll('.swiper-slider').forEach(initSlider);
   }
 
+  function destroyWithin(root) {
+    if (!root) return;
+    var sliders = [];
+    if (root.matches && root.matches('.swiper-slider')) sliders.push(root);
+    if (root.querySelectorAll) sliders = sliders.concat(Array.prototype.slice.call(root.querySelectorAll('.swiper-slider')));
+    sliders.forEach(function (el) {
+      if (el.swiper) el.swiper.destroy(true, true);
+    });
+  }
+
+  // Expose an initializer for theme code that inserts slider markup outside Shopify's editor events.
+  window.initSwiperSliders = initWithin;
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () { initWithin(document); }, { once: true });
   } else {
@@ -100,5 +96,9 @@
 
   document.addEventListener('shopify:section:load', function (event) {
     initWithin(event.target);
+  });
+
+  document.addEventListener('shopify:section:unload', function (event) {
+    destroyWithin(event.target);
   });
 })();

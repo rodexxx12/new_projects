@@ -1,29 +1,26 @@
+{%- comment -%}
+  Renders one slide.
+  Accepts: block (the section block object)
+{%- endcomment -%}
+
 <div class="swiper-slide" {{ block.shopify_attributes }}>
   <div class="swiper-slide__inner">
     {%- if block.settings.image != blank -%}
-      {{
-        block.settings.image
-        | image_url: width: 2400
-        | image_tag: loading: 'lazy', widths: '480, 720, 960, 1200, 1600, 2000, 2400', sizes: '100vw', class: 'swiper-slide__image'
-      }}
+      {{ block.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '400, 800, 1200, 1600' }}
     {%- else -%}
-      {{ 'lifestyle-1' | placeholder_svg_tag: 'swiper-slide__placeholder' }}
+      {{ 'hero-apparel-1' | placeholder_svg_tag }}
     {%- endif -%}
 
     {%- if block.settings.heading != blank or block.settings.text != blank or block.settings.button_label != blank -%}
       <div class="swiper-slide__content">
         {%- if block.settings.heading != blank -%}
-          <h2 class="swiper-slide__heading">{{ block.settings.heading | escape }}</h2>
+          <h2>{{ block.settings.heading }}</h2>
         {%- endif -%}
         {%- if block.settings.text != blank -%}
-          <div class="swiper-slide__text">{{ block.settings.text }}</div>
+          <p>{{ block.settings.text }}</p>
         {%- endif -%}
         {%- if block.settings.button_label != blank -%}
-          {%- if block.settings.button_link != blank -%}
-            <a class="swiper-slide__button" href="{{ block.settings.button_link }}">{{ block.settings.button_label | escape }}</a>
-          {%- else -%}
-            <span class="swiper-slide__button">{{ block.settings.button_label | escape }}</span>
-          {%- endif -%}
+          <a class="swiper-slide__button" href="{{ block.settings.button_link }}">{{ block.settings.button_label }}</a>
         {%- endif -%}
       </div>
     {%- endif -%}
