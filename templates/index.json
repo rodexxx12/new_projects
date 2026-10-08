@@ -245,6 +245,7 @@
           "settings": {
             "image": "{{ metaobjects.anime[\"hinokami-kagura-user\"].image.value }}",
             "heading": "{{ metaobjects.anime[\"hinokami-kagura-user\"].name.value }}",
+            "text": "",
             "button_label": "",
             "button_link": "{{ metaobjects.anime[\"hinokami-kagura-user\"].system.url }}"
           }
@@ -265,6 +266,7 @@
           "settings": {
             "image": "{{ metaobjects.anime[\"water-hashira\"].image.value }}",
             "heading": "{{ metaobjects.anime[\"water-hashira\"].name.value }}",
+            "text": "",
             "button_label": "",
             "button_link": "{{ metaobjects.anime[\"water-hashira\"].system.url }}"
           }
@@ -275,6 +277,7 @@
           "settings": {
             "image": "{{ metaobjects.anime[\"demon-demon-slaying-companion\"].image.value }}",
             "heading": "{{ metaobjects.anime[\"demon-demon-slaying-companion\"].name.value }}",
+            "text": "",
             "button_label": "{{ metaobjects.anime[\"demon-demon-slaying-companion\"].title.value }}",
             "button_link": "{{ metaobjects.anime[\"demon-demon-slaying-companion\"].system.url }}"
           }
@@ -293,12 +296,12 @@
         "speed": 600,
         "effect": "slide",
         "slides_desktop": 3,
-        "slides_mobile": 1,
-        "space_between": 15,
+        "slides_mobile": 2,
+        "space_between": 40,
         "slide_height": 450,
-        "corner_radius": 8,
-        "padding_top": 24,
-        "padding_bottom": 24,
+        "corner_radius": 18,
+        "padding_top": 68,
+        "padding_bottom": 64,
         "show_arrows": true,
         "pagination_type": "bullets",
         "arrow_color": "#ffffff",
