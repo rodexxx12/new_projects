@@ -434,10 +434,34 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "swiper_slider": {
+      "type": "swiper-slider",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {}
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {}
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "slideshow_aKz3kF",
+    "swiper_slider",
     "product_list_fa6P9H"
   ]
 }
