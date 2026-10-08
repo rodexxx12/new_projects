@@ -249,6 +249,7 @@
         "slide_2": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/nezuko3.png",
             "title": ""
           }
         },
