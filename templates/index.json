@@ -241,22 +241,15 @@
       "blocks": {
         "slide_1": {
           "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/zenitsu3.jpg",
-            "title": ""
-          }
+          "settings": {}
         },
         "slide_2": {
           "type": "slide",
-          "settings": {
-            "title": ""
-          }
+          "settings": {}
         },
         "slide_3": {
           "type": "slide",
-          "settings": {
-            "title": ""
-          }
+          "settings": {}
         }
       },
       "block_order": [
@@ -264,7 +257,26 @@
         "slide_2",
         "slide_3"
       ],
-      "settings": {}
+      "settings": {
+        "autoplay": true,
+        "autoplay_delay": 4000,
+        "loop": true,
+        "speed": 600,
+        "effect": "slide",
+        "slides_desktop": 3,
+        "slides_mobile": 1,
+        "space_between": 15,
+        "slide_height": 450,
+        "corner_radius": 8,
+        "padding_top": 24,
+        "padding_bottom": 24,
+        "show_arrows": true,
+        "pagination_type": "bullets",
+        "arrow_color": "#ffffff",
+        "dot_color": "#ffffff",
+        "text_color": "#ffffff",
+        "overlay": 25
+      }
     },
     "product_list_fa6P9H": {
       "type": "product-list",
