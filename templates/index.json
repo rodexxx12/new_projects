@@ -239,20 +239,49 @@
     "swiper_slider": {
       "type": "swiper-slider",
       "blocks": {
+        "slide_Yt6a7U": {
+          "type": "slide",
+          "source": "{{ metaobjects.anime[\"hinokami-kagura-user\"] }}",
+          "settings": {
+            "image": "{{ metaobjects.anime[\"hinokami-kagura-user\"].image.value }}",
+            "heading": "{{ metaobjects.anime[\"hinokami-kagura-user\"].name.value }}",
+            "button_label": "",
+            "button_link": "{{ metaobjects.anime[\"hinokami-kagura-user\"].system.url }}"
+          }
+        },
         "slide_1": {
           "type": "slide",
-          "settings": {}
+          "settings": {
+            "image": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"].image.value }}",
+            "heading": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"].name.value }}",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
         },
         "slide_2": {
           "type": "slide",
-          "settings": {}
+          "source": "{{ metaobjects.anime[\"water-hashira\"] }}",
+          "settings": {
+            "image": "{{ metaobjects.anime[\"water-hashira\"].image.value }}",
+            "heading": "{{ metaobjects.anime[\"water-hashira\"].name.value }}",
+            "button_label": "",
+            "button_link": "{{ metaobjects.anime[\"water-hashira\"].system.url }}"
+          }
         },
         "slide_3": {
           "type": "slide",
-          "settings": {}
+          "source": "{{ metaobjects.anime[\"demon-demon-slaying-companion\"] }}",
+          "settings": {
+            "image": "{{ metaobjects.anime[\"demon-demon-slaying-companion\"].image.value }}",
+            "heading": "{{ metaobjects.anime[\"demon-demon-slaying-companion\"].name.value }}",
+            "button_label": "{{ metaobjects.anime[\"demon-demon-slaying-companion\"].title.value }}",
+            "button_link": "{{ metaobjects.anime[\"demon-demon-slaying-companion\"].system.url }}"
+          }
         }
       },
       "block_order": [
+        "slide_Yt6a7U",
         "slide_1",
         "slide_2",
         "slide_3"
