@@ -3,24 +3,50 @@
   Accepts: block (the section block object)
 {%- endcomment -%}
 
-<div class="swiper-slide" {{ block.shopify_attributes }}>
+{%- liquid
+  assign slide_image = block.settings.image
+  assign mobile_image = block.settings.mobile_image
+  assign overlay_opacity = block.settings.overlay_opacity | divided_by: 100.0
+  assign text_alignment = block.settings.text_alignment | default: 'left'
+  assign text_position = block.settings.text_position | default: 'center'
+-%}
+
+<div
+  class="swiper-slide"
+  {{ block.shopify_attributes }}
+  data-text-alignment="{{ text_alignment }}"
+  style="--slide-text-color: {{ block.settings.text_color | default: section.settings.text_color }}; --slide-overlay-color: {{ block.settings.overlay_color | default: '#000000' }}; --slide-overlay-opacity: {{ overlay_opacity | default: 0.25 }};"
+>
   <div class="swiper-slide__inner">
-    {%- if block.settings.image != blank -%}
-      {{ block.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '400, 800, 1200, 1600' }}
+    {%- if slide_image != blank -%}
+      <picture class="swiper-slide__picture">
+        {%- if mobile_image != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 1000 }}">
+        {%- endif -%}
+        {{ slide_image | image_url: width: 2400 | image_tag: class: 'swiper-slide__image', loading: 'lazy', widths: '400, 800, 1200, 1600, 2000, 2400' }}
+      </picture>
     {%- else -%}
-      {{ 'hero-apparel-1' | placeholder_svg_tag }}
+      <div class="swiper-slide__placeholder">
+        {{ 'hero-apparel-1' | placeholder_svg_tag }}
+      </div>
     {%- endif -%}
 
+    <div class="swiper-slide__overlay" aria-hidden="true"></div>
+
     {%- if block.settings.heading != blank or block.settings.text != blank or block.settings.button_label != blank -%}
-      <div class="swiper-slide__content">
+      <div class="swiper-slide__content swiper-slide__content--{{ text_position }}">
         {%- if block.settings.heading != blank -%}
-          <h2>{{ block.settings.heading }}</h2>
+          <h2 class="swiper-slide__heading">{{ block.settings.heading | escape }}</h2>
         {%- endif -%}
         {%- if block.settings.text != blank -%}
-          <p>{{ block.settings.text }}</p>
+          <div class="swiper-slide__text">{{ block.settings.text }}</div>
         {%- endif -%}
         {%- if block.settings.button_label != blank -%}
-          <a class="swiper-slide__button" href="{{ block.settings.button_link }}">{{ block.settings.button_label }}</a>
+          {%- if block.settings.button_link != blank -%}
+            <a class="swiper-slide__button" href="{{ block.settings.button_link }}">{{ block.settings.button_label | escape }}</a>
+          {%- else -%}
+            <span class="swiper-slide__button">{{ block.settings.button_label | escape }}</span>
+          {%- endif -%}
         {%- endif -%}
       </div>
     {%- endif -%}
