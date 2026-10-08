@@ -69,79 +69,9 @@
         "padding-block-start": 20,
         "padding-block-end": 48
       }
-    },
-    "swiper_slider_pBzPEc": {
-      "type": "swiper-slider",
-      "blocks": {
-        "slide_Xtg9QN": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/zenitsu3_70b1d7a6-82a3-4c22-9673-2731e4119c10.jpg",
-            "heading": "Slide heading",
-            "text": "dfgfg",
-            "button_label": "dfg",
-            "button_link": ""
-          }
-        },
-        "slide_p9DrEa": {
-          "type": "slide",
-          "settings": {
-            "heading": "Slide heading",
-            "text": "",
-            "button_label": "",
-            "button_link": ""
-          }
-        },
-        "slide_GeNLtA": {
-          "type": "slide",
-          "settings": {
-            "heading": "Slide heading",
-            "text": "",
-            "button_label": "",
-            "button_link": ""
-          }
-        },
-        "slide_bGFxMd": {
-          "type": "slide",
-          "settings": {
-            "heading": "Slide heading",
-            "text": "",
-            "button_label": "",
-            "button_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "slide_Xtg9QN",
-        "slide_p9DrEa",
-        "slide_GeNLtA",
-        "slide_bGFxMd"
-      ],
-      "name": "Swiper Slider",
-      "settings": {
-        "autoplay": true,
-        "autoplay_delay": 4000,
-        "loop": true,
-        "speed": 600,
-        "effect": "slide",
-        "slides_desktop": 1,
-        "slides_mobile": 1,
-        "space_between": 15,
-        "slide_height": 450,
-        "corner_radius": 8,
-        "padding_top": 24,
-        "padding_bottom": 24,
-        "show_arrows": true,
-        "pagination_type": "bullets",
-        "arrow_color": "#ffffff",
-        "dot_color": "#ffffff",
-        "text_color": "#ffffff",
-        "overlay": 25
-      }
     }
   },
   "order": [
-    "footer_utilities_jLGE8U",
-    "swiper_slider_pBzPEc"
+    "footer_utilities_jLGE8U"
   ]
 }
