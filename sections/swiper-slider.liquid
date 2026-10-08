@@ -1,174 +1,114 @@
-<div class="swiper-section swiper-section-{{ section.id }}">
-  <div class="swiper swiper-{{ section.id }}">
-    <div class="swiper-wrapper">
+<div class="swiper custom-swiper">
+  <div class="swiper-wrapper">
 
-      {% for block in section.blocks %}
-        <div class="swiper-slide" {{ block.shopify_attributes }}>
+    {% for block in section.blocks %}
+      <div class="swiper-slide" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}
+          {{
+            block.settings.image
+            | image_url: width: 1600
+            | image_tag: loading: 'lazy'
+          }}
+        {% endif %}
 
-          {% if block.settings.image != blank %}
-            {{
-              block.settings.image
-              | image_url: width: 2000
-              | image_tag:
-                loading: 'lazy',
-                class: 'swiper-slide-image'
-            }}
-          {% endif %}
+        {% if block.settings.title != blank %}
+          <h2>{{ block.settings.title }}</h2>
+        {% endif %}
+      </div>
+    {% endfor %}
 
-          <div class="swiper-slide-content">
-            {% if block.settings.heading != blank %}
-              <h2>{{ block.settings.heading }}</h2>
-            {% endif %}
-
-            {% if block.settings.text != blank %}
-              <p>{{ block.settings.text }}</p>
-            {% endif %}
-
-            {% if block.settings.button_label != blank %}
-              <a
-                href="{{ block.settings.button_link }}"
-                class="swiper-slide-button"
-              >
-                {{ block.settings.button_label }}
-              </a>
-            {% endif %}
-          </div>
-
-        </div>
-      {% endfor %}
-
-    </div>
-
-    {% if section.settings.show_arrows %}
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
-    {% endif %}
-
-    {% if section.settings.show_pagination %}
-      <div class="swiper-pagination"></div>
-    {% endif %}
   </div>
+
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+
+  <div class="swiper-pagination"></div>
 </div>
-
-<style>
-  .swiper-section-{{ section.id }} {
-    width: 100%;
-  }
-
-  .swiper-{{ section.id }} {
-    width: 100%;
-    height: {{ section.settings.desktop_height }}px;
-  }
-
-  .swiper-{{ section.id }} .swiper-slide {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .swiper-{{ section.id }} .swiper-slide-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .swiper-{{ section.id }} .swiper-slide-content {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 40px;
-    text-align: center;
-    pointer-events: none;
-  }
-
-  .swiper-{{ section.id }} .swiper-slide-content h2 {
-    margin: 0 0 12px;
-    font-size: 40px;
-  }
-
-  .swiper-{{ section.id }} .swiper-slide-content p {
-    margin: 0 0 20px;
-    font-size: 18px;
-  }
-
-  .swiper-{{ section.id }} .swiper-slide-button {
-    pointer-events: auto;
-    display: inline-block;
-    width: fit-content;
-    margin: 0 auto;
-    padding: 12px 24px;
-    text-decoration: none;
-    background: #000;
-    color: #fff;
-  }
-
-  @media screen and (max-width: 749px) {
-    .swiper-{{ section.id }} {
-      height: {{ section.settings.mobile_height }}px;
-    }
-
-    .swiper-{{ section.id }} .swiper-slide-content {
-      padding: 20px;
-    }
-
-    .swiper-{{ section.id }} .swiper-slide-content h2 {
-      font-size: 28px;
-    }
-
-    .swiper-{{ section.id }} .swiper-slide-content p {
-      font-size: 16px;
-    }
-  }
-</style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const slider = document.querySelector('.swiper-{{ section.id }}');
+    new Swiper('.custom-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
 
-    if (!slider || typeof Swiper === 'undefined') {
-      return;
-    }
-
-    new Swiper(slider, {
-      loop: {{ section.settings.loop | json }},
-
-      slidesPerView: {{ section.settings.slides_mobile }},
-      spaceBetween: {{ section.settings.space_between }},
-
-      speed: {{ section.settings.speed }},
-
-      {% if section.settings.autoplay %}
       autoplay: {
-        delay: {{ section.settings.autoplay_delay }},
+        delay: 4000,
         disableOnInteraction: false
       },
-      {% endif %}
 
-      {% if section.settings.show_pagination %}
       pagination: {
-        el: slider.querySelector('.swiper-pagination'),
+        el: '.swiper-pagination',
         clickable: true
       },
-      {% endif %}
 
-      {% if section.settings.show_arrows %}
       navigation: {
-        nextEl: slider.querySelector('.swiper-button-next'),
-        prevEl: slider.querySelector('.swiper-button-prev')
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
       },
-      {% endif %}
 
       breakpoints: {
-        750: {
-          slidesPerView: {{ section.settings.slides_tablet }}
+        768: {
+          slidesPerView: 2
         },
 
-        990: {
-          slidesPerView: {{ section.settings.slides_desktop }}
+        1024: {
+          slidesPerView: 3
         }
       }
     });
   });
 </script>
+
+{% stylesheet %}
+
+.custom-swiper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.custom-swiper .swiper-slide {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-swiper .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Swiper Slider",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Swiper Slider"
+    }
+  ]
+}
+{% endschema %}
