@@ -236,37 +236,6 @@
         "padding-block-end": 0
       }
     },
-    "swiper_slider": {
-      "type": "swiper-slider",
-      "blocks": {
-        "slide_1": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/g.jpg",
-            "title": ""
-          }
-        },
-        "slide_2": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/nezuko3.png",
-            "title": ""
-          }
-        },
-        "slide_3": {
-          "type": "slide",
-          "settings": {
-            "title": ""
-          }
-        }
-      },
-      "block_order": [
-        "slide_1",
-        "slide_2",
-        "slide_3"
-      ],
-      "settings": {}
-    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -465,6 +434,29 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "swiper_slider": {
+      "type": "swiper-slider",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {}
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {}
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ],
+      "settings": {}
     }
   },
   "order": [
