@@ -1,114 +1,54 @@
-<div class="swiper custom-swiper">
-  <div class="swiper-wrapper">
+<div class="page-width">
+  <div
+    class="swiper swiper-slider"
+    id="swiper-{{ section.id }}"
+    style="
+      --ss-padding-top: {{ section.settings.padding_top }}px;
+      --ss-padding-bottom: {{ section.settings.padding_bottom }}px;
+      --ss-height: {{ section.settings.slide_height }}px;
+      --ss-radius: {{ section.settings.corner_radius }}px;
+      --ss-arrow-color: {{ section.settings.arrow_color }};
+      --ss-dot-color: {{ section.settings.dot_color }};
+      --ss-text-color: {{ section.settings.text_color }};
+      --ss-overlay: {{ section.settings.overlay | divided_by: 100.0 }};
+    "
+    data-autoplay="{{ section.settings.autoplay }}"
+    data-delay="{{ section.settings.autoplay_delay }}"
+    data-loop="{{ section.settings.loop }}"
+    data-speed="{{ section.settings.speed }}"
+    data-effect="{{ section.settings.effect }}"
+    data-desktop="{{ section.settings.slides_desktop }}"
+    data-mobile="{{ section.settings.slides_mobile }}"
+    data-space="{{ section.settings.space_between }}"
+    data-arrows="{{ section.settings.show_arrows }}"
+    data-pagination="{{ section.settings.pagination_type }}"
+  >
+    <div class="swiper-wrapper">
+      {%- for block in section.blocks -%}
+        {%- render 'swiper-slide', block: block -%}
+      {%- endfor -%}
+    </div>
 
-    {% for block in section.blocks %}
-      <div class="swiper-slide" {{ block.shopify_attributes }}>
-        {% if block.settings.image != blank %}
-          {{
-            block.settings.image
-            | image_url: width: 1600
-            | image_tag: loading: 'lazy'
-          }}
-        {% endif %}
+    {%- if section.settings.show_arrows -%}
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    {%- endif -%}
 
-        {% if block.settings.title != blank %}
-          <h2>{{ block.settings.title }}</h2>
-        {% endif %}
-      </div>
-    {% endfor %}
-
+    {%- if section.settings.pagination_type != 'none' -%}
+      <div class="swiper-pagination"></div>
+    {%- endif -%}
   </div>
-
-  <div class="swiper-button-prev"></div>
-  <div class="swiper-button-next"></div>
-
-  <div class="swiper-pagination"></div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    new Swiper('.custom-swiper', {
-      slidesPerView: 1,
-      spaceBetween: 20,
-      loop: true,
-
-      autoplay: {
-        delay: 4000,
-        disableOnInteraction: false
-      },
-
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true
-      },
-
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
-      },
-
-      breakpoints: {
-        768: {
-          slidesPerView: 2
-        },
-
-        1024: {
-          slidesPerView: 3
-        }
-      }
-    });
-  });
-</script>
-
-{% stylesheet %}
-
-.custom-swiper {
-  width: 100%;
-  overflow: hidden;
-}
-
-.custom-swiper .swiper-slide {
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.custom-swiper .swiper-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-{% endstylesheet %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+<script src="{{ 'swiper-slider.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
   "name": "Swiper Slider",
-  "settings": [],
-  "blocks": [
-    {
-      "type": "slide",
-      "name": "Slide",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title"
-        }
-      ]
-    }
+  "settings": [
+    { "type": "checkbox", "id": "autoplay", "label": "Autoplay", "default": true }
   ],
-  "presets": [
-    {
-      "name": "Swiper Slider"
-    }
-  ]
+  "presets": [{ "name": "Swiper Slider" }]
 }
 {% endschema %}
