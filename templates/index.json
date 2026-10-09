@@ -239,92 +239,41 @@
     "swiper_slider": {
       "type": "swiper-slider",
       "blocks": {
-        "slide_W3KTbV": {
-          "type": "slide",
-          "settings": {
-            "heading": "Slide heading",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "text_alignment": "left",
-            "text_position": "center",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 25
-          }
-        },
-        "slide_FfNm3W": {
-          "type": "slide",
-          "source": "{{ metaobjects.anime[\"that-time-i-got-reincarnated-as-a-slime\"] }}",
-          "settings": {
-            "image": "{{ metaobjects.anime[\"that-time-i-got-reincarnated-as-a-slime\"].image.value }}",
-            "heading": "{{ metaobjects.anime[\"that-time-i-got-reincarnated-as-a-slime\"].ranking.value }}",
-            "text": "",
-            "button_label": "{{ metaobjects.anime[\"that-time-i-got-reincarnated-as-a-slime\"].title.value }}",
-            "button_link": "{{ metaobjects.anime[\"that-time-i-got-reincarnated-as-a-slime\"].system.url }}",
-            "text_alignment": "left",
-            "text_position": "center",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 25
-          }
-        },
         "slide_1": {
           "type": "slide",
-          "source": "{{ metaobjects.anime[\"water-hashira\"] }}",
           "settings": {
-            "image": "{{ metaobjects.anime[\"water-hashira\"].image.value }}",
-            "heading": "{{ metaobjects.anime[\"water-hashira\"].ranking.value }}",
-            "text": "",
-            "button_label": "{{ metaobjects.anime[\"water-hashira\"].title.value }}",
-            "button_link": "{{ metaobjects.anime[\"water-hashira\"].system.url }}",
+            "image": "shopify://shop_images/final.jpg",
+            "heading": "New arrivals",
+            "text": "Shop the latest drop before it's gone.",
+            "button_label": "Shop now",
+            "button_link": "/collections/all",
             "text_alignment": "left",
             "text_position": "center",
-            "text_color": "#ffffff",
+            "text_color": "#FFFFFF",
             "overlay_color": "#000000",
             "overlay_opacity": 25
           }
         },
         "slide_2": {
           "type": "slide",
-          "source": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"] }}",
           "settings": {
-            "image": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"].image.value }}",
-            "heading": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"].ranking.value }}",
-            "text": "",
-            "button_label": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"].title.value }}",
-            "button_link": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"].system.url }}",
-            "text_alignment": "left",
-            "text_position": "center",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 25
+            "image": "shopify://shop_images/YOUR-IMAGE-2.jpg",
+            "heading": "Best sellers",
+            "button_label": "Browse",
+            "button_link": "/collections/all"
           }
         },
         "slide_3": {
           "type": "slide",
-          "source": "{{ metaobjects.anime[\"flame-hashira\"] }}",
           "settings": {
-            "image": "{{ metaobjects.anime[\"flame-hashira\"].image.value }}",
-            "heading": "{{ metaobjects.anime[\"flame-hashira\"].ranking.value }}",
-            "text": "",
-            "button_label": "{{ metaobjects.anime[\"flame-hashira\"].title.value }}",
-            "button_link": "{{ metaobjects.anime[\"flame-hashira\"].system.url }}",
-            "text_alignment": "left",
-            "text_position": "center",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 25
+            "image": "shopify://shop_images/YOUR-IMAGE-3.jpg",
+            "heading": "On sale",
+            "button_label": "View deals",
+            "button_link": "/collections/all"
           }
         }
       },
-      "block_order": [
-        "slide_W3KTbV",
-        "slide_FfNm3W",
-        "slide_1",
-        "slide_2",
-        "slide_3"
-      ],
+      "block_order": ["slide_1", "slide_2", "slide_3"],
       "settings": {
         "autoplay": true,
         "pause_on_hover": true,
@@ -334,22 +283,21 @@
         "effect": "slide",
         "slides_desktop": 3,
         "slides_tablet": 2,
-        "slides_mobile": 3,
-        "space_between": 30,
-        "slide_height": 380,
-        "slide_height_mobile": 200,
+        "slides_mobile": 1,
+        "space_between": 15,
+        "slide_height": 450,
+        "slide_height_mobile": 320,
         "corner_radius": 8,
         "padding_top": 24,
         "padding_bottom": 24,
-        "center_zoom": true,
-        "center_zoom_scale": 130,
+        "center_zoom": false,
+        "center_zoom_scale": 115,
         "side_opacity": 70,
         "show_arrows": true,
         "pagination_type": "bullets",
         "arrow_color": "#ffffff",
         "dot_color": "#ffffff",
-        "text_color": "#ffffff",
-        "overlay": 25
+        "text_color": "#ffffff"
       }
     },
     "product_list_fa6P9H": {
@@ -550,122 +498,11 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
-    },
-    "hero_fLEyfV": {
-      "type": "hero",
-      "blocks": {
-        "text_wkPbpa": {
-          "type": "text",
-          "settings": {
-            "text": "<h2>New arrivals</h2>",
-            "width": "fit-content",
-            "max_width": "narrow",
-            "alignment": "left",
-            "type_preset": "h1",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "text_CFTrYX": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Made with care and unconditionally loved by our customers.</p>",
-            "width": "fit-content",
-            "max_width": "narrow",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 32,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "button_wPFzQg": {
-          "type": "button",
-          "name": "t:names.button",
-          "settings": {
-            "label": "Shop now",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button",
-            "custom_button_background": "{{ settings.color_palette.foreground }}",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
-            "link_text_color": "",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_wkPbpa",
-        "text_CFTrYX",
-        "button_wPFzQg"
-      ],
-      "name": "t:names.hero",
-      "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "link": "",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 16,
-        "section_width": "page-width",
-        "section_height": "large",
-        "section_height_custom": 50,
-        "background_color": "",
-        "toggle_overlay": true,
-        "overlay_color": "#00000026",
-        "overlay_style": "gradient",
-        "gradient_direction": "to top",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 40,
-        "padding-block-end": 40
-      }
     }
   },
   "order": [
     "slideshow_aKz3kF",
     "swiper_slider",
-    "product_list_fa6P9H",
-    "hero_fLEyfV"
+    "product_list_fa6P9H"
   ]
 }
