@@ -239,7 +239,27 @@
     "swiper_slider": {
       "type": "swiper-slider",
       "blocks": {
+        "slide_FfNm3W": {
+          "type": "slide",
+          "source": "{{ metaobjects.anime[\"that-time-i-got-reincarnated-as-a-slime\"] }}",
+          "settings": {
+            "image": "{{ metaobjects.anime[\"that-time-i-got-reincarnated-as-a-slime\"].image.value }}",
+            "heading": "{{ metaobjects.anime[\"that-time-i-got-reincarnated-as-a-slime\"].ranking.value }}",
+            "button_label": "{{ metaobjects.anime[\"that-time-i-got-reincarnated-as-a-slime\"].title.value }}",
+            "button_link": "{{ metaobjects.anime[\"that-time-i-got-reincarnated-as-a-slime\"].system.url }}"
+          }
+        },
         "slide_1": {
+          "type": "slide",
+          "source": "{{ metaobjects.anime[\"water-hashira\"] }}",
+          "settings": {
+            "image": "{{ metaobjects.anime[\"water-hashira\"].image.value }}",
+            "heading": "{{ metaobjects.anime[\"water-hashira\"].ranking.value }}",
+            "button_label": "{{ metaobjects.anime[\"water-hashira\"].title.value }}",
+            "button_link": "{{ metaobjects.anime[\"water-hashira\"].system.url }}"
+          }
+        },
+        "slide_2": {
           "type": "slide",
           "source": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"] }}",
           "settings": {
@@ -249,53 +269,42 @@
             "button_link": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"].system.url }}"
           }
         },
-        "slide_2": {
-          "type": "slide",
-          "settings": {
-            "heading": "Slide heading",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "text_alignment": "left",
-            "text_position": "center",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 25
-          }
-        },
         "slide_3": {
           "type": "slide",
+          "source": "{{ metaobjects.anime[\"flame-hashira\"] }}",
           "settings": {
-            "heading": "Slide heading",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "text_alignment": "left",
-            "text_position": "center",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 25
+            "image": "{{ metaobjects.anime[\"flame-hashira\"].image.value }}",
+            "heading": "{{ metaobjects.anime[\"flame-hashira\"].ranking.value }}",
+            "button_label": "{{ metaobjects.anime[\"flame-hashira\"].title.value }}",
+            "button_link": "{{ metaobjects.anime[\"flame-hashira\"].system.url }}"
           }
         }
       },
       "block_order": [
+        "slide_FfNm3W",
         "slide_1",
         "slide_2",
         "slide_3"
       ],
       "settings": {
         "autoplay": true,
+        "pause_on_hover": true,
         "autoplay_delay": 4000,
         "loop": true,
         "speed": 600,
         "effect": "slide",
         "slides_desktop": 3,
+        "slides_tablet": 2,
         "slides_mobile": 1,
         "space_between": 15,
         "slide_height": 450,
+        "slide_height_mobile": 320,
         "corner_radius": 8,
         "padding_top": 24,
         "padding_bottom": 24,
+        "center_zoom": false,
+        "center_zoom_scale": 115,
+        "side_opacity": 70,
         "show_arrows": true,
         "pagination_type": "bullets",
         "arrow_color": "#ffffff",
