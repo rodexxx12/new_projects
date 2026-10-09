@@ -1,0 +1,49 @@
+{% comment %}
+  Configuration-only block.
+  It does not render a second product card.
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Card override",
+  "tag": null,
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product to customize"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Card background"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "shadow",
+      "label": "Shadow",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "soft", "label": "Soft" },
+        { "value": "strong", "label": "Strong" }
+      ],
+      "default": "none"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Card override"
+    }
+  ]
+}
+{% endschema %}

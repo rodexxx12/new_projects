@@ -2,10 +2,15 @@
 
 {% liquid
   assign max_items = section.settings.max_products
+  assign card_overrides = section.blocks | where: 'type', 'collection-card-override'
   if section.settings.background_color != blank
     render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
   endif
 %}
+
+{% if card_overrides.size > 0 %}
+  {{ 'product-card-custom.css' | asset_url | stylesheet_tag }}
+{% endif %}
 
 <div
   class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
@@ -33,6 +38,15 @@
     {% if section.settings.collection != blank and shop.products_count != 0 %}
       {% paginate section.settings.collection.products by max_items %}
         {% for product in section.settings.collection.products limit: max_items %}
+          {% liquid
+            assign matching_override = nil
+            for override in card_overrides
+              if override.settings.product != blank and override.settings.product.id == product.id
+                assign matching_override = override
+                break
+              endif
+            endfor
+          %}
         <div
           class="resource-list__item"
         >
@@ -40,7 +54,8 @@
               type: '_product-card',
               id: 'static-product-card',
               closest.product: product,
-              product_view_context: 'collection'
+              product_view_context: 'collection',
+              card_override: matching_override
             %}
           </div>
 

@@ -2,6 +2,7 @@
 
 {%- doc -%}
   @param {string} [product_view_context] - Context value passed through to the card snippet.
+  @param {object} [card_override] - Product-specific override block supplied by the parent section.
 {%- enddoc -%}
 
 {% liquid
@@ -12,7 +13,12 @@
   {% content_for 'blocks', closest.product: product %}
 {% endcapture %}
 
-{% render 'product-card', children: children, product: product, product_view_context: product_view_context %}
+{% render 'product-card',
+  children: children,
+  product: product,
+  product_view_context: product_view_context,
+  card_override: card_override
+%}
 {% render 'quantity-selector-styles' %}
 {% render 'buy-buttons-styles' %}
 {% render 'gift-card-recipient-form-styles' %}

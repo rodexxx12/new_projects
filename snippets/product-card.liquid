@@ -6,6 +6,7 @@
   @param {object} product - The product object
   @param {object} children - The children of the product card
   @param {object} [block] - The block object
+  @param {object} [card_override] - Optional product-specific override block; settings are separate from native block settings.
   @param {number} [product_card_gap] - The gap between the product card children (overrides block settings)
   @param {string} [product_view_context] - The context in which the product card is being rendered. Used for standard events.
 {%- enddoc -%}
@@ -54,15 +55,27 @@
     assign onboarding = true
   endif
 
-  if block_settings.background_color != blank
-    render 'contrast-override', background_color: block_settings.background_color, text_color: block_settings.text_color, section_id: block.id
+  assign card_background_color = block_settings.background_color
+  assign card_color_id = block.id
+  if card_override != blank and card_override.settings.background_color != blank
+    assign card_background_color = card_override.settings.background_color
+    assign card_color_id = block.id | append: '-' | append: product.id | append: '-' | append: card_override.id
+  endif
+
+  if card_background_color != blank
+    render 'contrast-override', background_color: card_background_color, text_color: block_settings.text_color, section_id: card_color_id
   endif
 %}
 
 <product-card
-  class="product-card size-style{% if block_settings.custom_card_enabled %} product-card--custom{% endif %}"
-  {% if block_settings.custom_card_enabled %}
+  class="product-card size-style{% if block_settings.custom_card_enabled or card_override != blank %} product-card--custom{% endif %}"
+  {% if card_override != blank %}
+    data-card-override="{{ card_override.id | escape }}"
+    data-custom-shadow="{{ card_override.settings.shadow | escape }}"
+  {% elsif block_settings.custom_card_enabled %}
     data-custom-shadow="{{ block_settings.custom_shadow | escape }}"
+  {% endif %}
+  {% if block_settings.custom_card_enabled %}
     data-custom-hover="{{ block_settings.custom_hover | escape }}"
   {% endif %}
   style="{% render 'size-style', settings: block_settings %}"
@@ -100,7 +113,7 @@
       spacing-style
       border-style
       gap-style
-      {% if block_settings.background_color != blank %} color-custom-{{ block.id }}{% endif %}
+      {% if card_background_color != blank %} color-custom-{{ card_color_id }}{% endif %}
     "
     style="
       {% render 'border-override', settings: block_settings %}
@@ -117,6 +130,9 @@
       {% if block_settings.custom_card_enabled %}
         --custom-card-mobile-radius:
           {{ block_settings.custom_mobile_radius }}px;
+      {% endif %}
+      {% if card_override != blank %}
+        --individual-card-radius: {{ card_override.settings.border_radius }}px;
       {% endif %}
     "
   >

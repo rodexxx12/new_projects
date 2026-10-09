@@ -51,6 +51,13 @@ product-card.product-card--custom
   }
 }
 
+/* Matched collection overrides use the same radius at every viewport size. */
+
+product-card.product-card--custom[data-card-override]
+  > .product-card__content {
+  border-radius: var(--individual-card-radius);
+}
+
 @media (prefers-reduced-motion: reduce) {
   product-card.product-card--custom {
     transition: none;
