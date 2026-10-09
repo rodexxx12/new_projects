@@ -241,15 +241,41 @@
       "blocks": {
         "slide_1": {
           "type": "slide",
-          "settings": {}
+          "source": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"] }}",
+          "settings": {
+            "image": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"].image.value }}",
+            "heading": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"].ranking.value }}",
+            "button_label": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"].title.value }}",
+            "button_link": "{{ metaobjects.anime[\"thunder-breathing-swordsman\"].system.url }}"
+          }
         },
         "slide_2": {
           "type": "slide",
-          "settings": {}
+          "settings": {
+            "heading": "Slide heading",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "text_alignment": "left",
+            "text_position": "center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 25
+          }
         },
         "slide_3": {
           "type": "slide",
-          "settings": {}
+          "settings": {
+            "heading": "Slide heading",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "text_alignment": "left",
+            "text_position": "center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 25
+          }
         }
       },
       "block_order": [
