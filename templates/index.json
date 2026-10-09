@@ -337,7 +337,7 @@
         "slides_mobile": 3,
         "space_between": 30,
         "slide_height": 380,
-        "slide_height_mobile": 280,
+        "slide_height_mobile": 200,
         "corner_radius": 8,
         "padding_top": 24,
         "padding_bottom": 24,
