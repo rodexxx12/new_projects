@@ -1,0 +1,58 @@
+/* Independent Horizon product-card enhancements */
+
+product-card.product-card--custom {
+  --custom-card-shadow: none;
+  --custom-card-transform: none;
+
+  transition: transform 220ms ease;
+}
+
+/* Shadow variants */
+
+product-card.product-card--custom[data-custom-shadow="soft"] {
+  --custom-card-shadow:
+    0 4px 14px rgb(0 0 0 / 0.07);
+}
+
+product-card.product-card--custom[data-custom-shadow="medium"] {
+  --custom-card-shadow:
+    0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+product-card.product-card--custom[data-custom-shadow="strong"] {
+  --custom-card-shadow:
+    0 14px 36px rgb(0 0 0 / 0.18);
+}
+
+product-card.product-card--custom
+  > .product-card__content {
+  box-shadow: var(--custom-card-shadow);
+}
+
+/* Hover effects */
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  product-card.product-card--custom[data-custom-hover="lift"]:hover {
+    transform: translateY(-5px);
+  }
+
+  product-card.product-card--custom[data-custom-hover="scale"]:hover {
+    transform: scale(1.025);
+  }
+}
+
+/* Mobile card radius */
+
+@media (max-width: 749px) {
+  product-card.product-card--custom
+    > .product-card__content {
+    border-radius:
+      var(--custom-card-mobile-radius, 0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  product-card.product-card--custom {
+    transition: none;
+  }
+}

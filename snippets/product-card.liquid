@@ -60,7 +60,11 @@
 %}
 
 <product-card
-  class="product-card size-style"
+  class="product-card size-style{% if block_settings.custom_card_enabled %} product-card--custom{% endif %}"
+  {% if block_settings.custom_card_enabled %}
+    data-custom-shadow="{{ block_settings.custom_shadow | escape }}"
+    data-custom-hover="{{ block_settings.custom_hover | escape }}"
+  {% endif %}
   style="{% render 'size-style', settings: block_settings %}"
   data-product-id="{{ product.id }}"
   id="product-card-{{ block.id }}"
@@ -110,6 +114,10 @@
       {% if block_settings.padding-inline-end > 0 %}--zoom-out-padding-inline-end: min(var(--padding-xs), {{ block_settings.padding-inline-end | times: 0.7}}px);{% endif %}
       {% if block_settings.padding-block-start > 0 %}--zoom-out-padding-block-start: min(var(--padding-xs), {{ block_settings.padding-block-start | times: 0.7}}px);{% endif %}
       {% if block_settings.padding-block-end > 0 %}--zoom-out-padding-block-end: min(var(--padding-xs), {{ block_settings.padding-block-end | times: 0.7}}px);{% endif %}
+      {% if block_settings.custom_card_enabled %}
+        --custom-card-mobile-radius:
+          {{ block_settings.custom_mobile_radius }}px;
+      {% endif %}
     "
   >
     {{ children }}

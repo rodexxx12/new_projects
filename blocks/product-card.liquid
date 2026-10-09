@@ -13,6 +13,8 @@
 {% render 'product-card', children: children, product: product, block: block %}
 {% render 'buy-buttons-styles' %}
 
+{{ 'product-card-custom.css' | asset_url | stylesheet_tag }}
+
 {% schema %}
 {
   "name": "t:names.product_card",
@@ -242,6 +244,52 @@
       "step": 1,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Individual card styling"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_card_enabled",
+      "label": "Enable custom card effects",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "custom_shadow",
+      "label": "Card shadow",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "soft", "label": "Soft" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "strong", "label": "Strong" }
+      ],
+      "default": "none",
+      "visible_if": "{{ block.settings.custom_card_enabled }}"
+    },
+    {
+      "type": "select",
+      "id": "custom_hover",
+      "label": "Hover effect",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "lift", "label": "Lift" },
+        { "value": "scale", "label": "Scale" }
+      ],
+      "default": "none",
+      "visible_if": "{{ block.settings.custom_card_enabled }}"
+    },
+    {
+      "type": "range",
+      "id": "custom_mobile_radius",
+      "label": "Mobile corner radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.custom_card_enabled }}"
     }
   ],
   "presets": [
