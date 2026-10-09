@@ -63,3 +63,31 @@ product-card.product-card--custom[data-card-override]
     transition: none;
   }
 }
+
+/* =========================================
+   Individual collection product overrides
+   ========================================= */
+
+.resource-list__item.collection-card--overridden
+  product-card > .product-card__content {
+  background-color:
+    var(--collection-card-background, transparent) !important;
+
+  border-radius:
+    var(--collection-card-radius, 0px) !important;
+
+  overflow: hidden;
+  box-shadow: none;
+}
+
+/* Soft shadow */
+.resource-list__item.collection-card--overridden[data-override-shadow="soft"]
+  product-card > .product-card__content {
+  box-shadow: 0 5px 16px rgb(0 0 0 / 0.10);
+}
+
+/* Strong shadow */
+.resource-list__item.collection-card--overridden[data-override-shadow="strong"]
+  product-card > .product-card__content {
+  box-shadow: 0 12px 30px rgb(0 0 0 / 0.20);
+}

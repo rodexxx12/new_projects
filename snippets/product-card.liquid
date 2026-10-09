@@ -80,7 +80,7 @@
   {% endif %}
   style="{% render 'size-style', settings: block_settings %}"
   data-product-id="{{ product.id }}"
-  id="product-card-{{ block.id }}"
+  id="product-card-{{ block.id }}-{{ product.id }}"
   {% if settings.transition_to_main_product %}
     data-product-transition="true"
     data-featured-media-url="{{ featured_media_url }}"
