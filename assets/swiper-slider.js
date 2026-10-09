@@ -43,8 +43,15 @@
       ? data.pagination
       : 'none';
 
+    // Center zoom only works with the sliding effect (fade shows 1 slide at a time)
+    var zoomRequested = boolValue(data.centerZoom, false) && effect === 'slide';
+    if (zoomRequested && slides < maxPerView + 2) {
+      console.warn('Swiper Slider: center zoom works best with at least ' + (maxPerView + 2) + ' slides (currently ' + slides + ').');
+    }
+
     var options = {
       loop: boolValue(data.loop, true) && slides > maxPerView,
+      centeredSlides: zoomRequested,
       speed: numberValue(data.speed, DEFAULTS.speed, 0, 10000),
       effect: effect,
       fadeEffect: { crossFade: true },
@@ -78,7 +85,17 @@
       }
     }
 
-    new window.Swiper(el, options);
+    // Zoom only when the current screen shows 2+ slides.
+    // With 1 slide per view (usually mobile) there are no "sides", so it stays off.
+    function syncZoom(swiper) {
+      var active = zoomRequested && Number(swiper.params.slidesPerView) > 1;
+      swiper.el.classList.toggle('is-zoom-active', active);
+    }
+
+    options.on = { breakpoint: syncZoom, resize: syncZoom };
+
+    var instance = new window.Swiper(el, options);
+    syncZoom(instance);
   }
 
   function initWithin(root) {

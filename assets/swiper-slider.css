@@ -125,3 +125,46 @@
 .swiper-slider .swiper-pagination-progressbar-fill {
   background: var(--ss-dot-color, #fff);
 }
+/* ---------- Center zoom ---------- */
+
+/* Extra room so the scaled slide isn't clipped by overflow:hidden */
+.swiper-slider.is-zoom-active {
+  padding-top: calc(var(--ss-padding-top, 24px) + var(--ss-height, 450px) * (var(--ss-zoom-scale, 1.15) - 1) / 2);
+  padding-bottom: calc(var(--ss-padding-bottom, 24px) + var(--ss-height, 450px) * (var(--ss-zoom-scale, 1.15) - 1) / 2);
+}
+
+@media (max-width: 749px) {
+  .swiper-slider.is-zoom-active {
+    padding-top: calc(var(--ss-padding-top, 24px) + var(--ss-height-mobile, 320px) * (var(--ss-zoom-scale, 1.15) - 1) / 2);
+    padding-bottom: calc(var(--ss-padding-bottom, 24px) + var(--ss-height-mobile, 320px) * (var(--ss-zoom-scale, 1.15) - 1) / 2);
+  }
+}
+
+/* Side slides: normal size, dimmed */
+.swiper-slider.is-zoom-active .swiper-slide__inner {
+  transform: scale(1);
+  opacity: var(--ss-side-opacity, 0.7);
+  transition:
+    transform var(--ss-speed, 600ms) ease,
+    opacity var(--ss-speed, 600ms) ease,
+    box-shadow var(--ss-speed, 600ms) ease;
+  will-change: transform;
+}
+
+/* Center slide: sits on top, zooms, full opacity */
+.swiper-slider.is-zoom-active .swiper-slide-active {
+  z-index: 2;
+}
+
+.swiper-slider.is-zoom-active .swiper-slide-active .swiper-slide__inner {
+  transform: scale(var(--ss-zoom-scale, 1.15));
+  opacity: 1;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* Respect reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+  .swiper-slider.is-zoom-active .swiper-slide__inner {
+    transition: none;
+  }
+}

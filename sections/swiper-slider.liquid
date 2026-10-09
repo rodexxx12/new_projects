@@ -4,7 +4,7 @@
   <div
     class="swiper swiper-slider"
     id="swiper-{{ section.id }}"
-    style="--ss-padding-top: {{ section.settings.padding_top }}px; --ss-padding-bottom: {{ section.settings.padding_bottom }}px; --ss-height: {{ section.settings.slide_height }}px; --ss-height-mobile: {{ section.settings.slide_height_mobile }}px; --ss-radius: {{ section.settings.corner_radius }}px; --ss-arrow-color: {{ section.settings.arrow_color }}; --ss-dot-color: {{ section.settings.dot_color }}; --ss-text-color: {{ section.settings.text_color }};"
+    style="--ss-padding-top: {{ section.settings.padding_top }}px; --ss-padding-bottom: {{ section.settings.padding_bottom }}px; --ss-height: {{ section.settings.slide_height }}px; --ss-height-mobile: {{ section.settings.slide_height_mobile }}px; --ss-radius: {{ section.settings.corner_radius }}px; --ss-arrow-color: {{ section.settings.arrow_color }}; --ss-dot-color: {{ section.settings.dot_color }}; --ss-text-color: {{ section.settings.text_color }}; --ss-zoom-scale: {{ section.settings.center_zoom_scale | divided_by: 100.0 }}; --ss-side-opacity: {{ section.settings.side_opacity | divided_by: 100.0 }}; --ss-speed: {{ section.settings.speed }}ms;"
     data-autoplay="{{ section.settings.autoplay }}"
     data-delay="{{ section.settings.autoplay_delay }}"
     data-loop="{{ section.settings.loop }}"
@@ -17,6 +17,7 @@
     data-space="{{ section.settings.space_between }}"
     data-arrows="{{ section.settings.show_arrows }}"
     data-pagination="{{ section.settings.pagination_type }}"
+    data-center-zoom="{{ section.settings.center_zoom }}"
   >
     <div class="swiper-wrapper">
       {%- for block in section.blocks -%}
@@ -59,6 +60,11 @@
     { "type": "range", "id": "corner_radius", "label": "Corner radius (px)", "min": 0, "max": 40, "step": 2, "default": 8 },
     { "type": "range", "id": "padding_top", "label": "Padding top (px)", "min": 0, "max": 100, "step": 4, "default": 24 },
     { "type": "range", "id": "padding_bottom", "label": "Padding bottom (px)", "min": 0, "max": 100, "step": 4, "default": 24 },
+    { "type": "header", "content": "Center zoom" },
+    { "type": "paragraph", "content": "Zooms the center slide while the side slides stay the same size. Needs 2+ slides per view and at least 2 more slides than 'slides per view'. Use an odd number (3 or 5). Ignored with the Fade effect." },
+    { "type": "checkbox", "id": "center_zoom", "label": "Zoom the center slide", "default": false },
+    { "type": "range", "id": "center_zoom_scale", "label": "Zoom amount", "min": 100, "max": 150, "step": 5, "unit": "%", "default": 115 },
+    { "type": "range", "id": "side_opacity", "label": "Side slides opacity", "min": 30, "max": 100, "step": 5, "unit": "%", "default": 70 },
     { "type": "header", "content": "Controls" },
     { "type": "checkbox", "id": "show_arrows", "label": "Show arrows", "default": true },
     { "type": "select", "id": "pagination_type", "label": "Pagination", "options": [ { "value": "none", "label": "None" }, { "value": "bullets", "label": "Dots" }, { "value": "fraction", "label": "Fraction" }, { "value": "progressbar", "label": "Progress bar" } ], "default": "bullets" },
