@@ -4,14 +4,16 @@
   <div
     class="swiper swiper-slider"
     id="swiper-{{ section.id }}"
-    style="--ss-padding-top: {{ section.settings.padding_top }}px; --ss-padding-bottom: {{ section.settings.padding_bottom }}px; --ss-height: {{ section.settings.slide_height }}px; --ss-radius: {{ section.settings.corner_radius }}px; --ss-arrow-color: {{ section.settings.arrow_color }}; --ss-dot-color: {{ section.settings.dot_color }}; --ss-text-color: {{ section.settings.text_color }}; --ss-overlay: {{ section.settings.overlay | divided_by: 100.0 }};"
+    style="--ss-padding-top: {{ section.settings.padding_top }}px; --ss-padding-bottom: {{ section.settings.padding_bottom }}px; --ss-height: {{ section.settings.slide_height }}px; --ss-height-mobile: {{ section.settings.slide_height_mobile }}px; --ss-radius: {{ section.settings.corner_radius }}px; --ss-arrow-color: {{ section.settings.arrow_color }}; --ss-dot-color: {{ section.settings.dot_color }}; --ss-text-color: {{ section.settings.text_color }};"
     data-autoplay="{{ section.settings.autoplay }}"
     data-delay="{{ section.settings.autoplay_delay }}"
     data-loop="{{ section.settings.loop }}"
     data-speed="{{ section.settings.speed }}"
     data-effect="{{ section.settings.effect }}"
     data-desktop="{{ section.settings.slides_desktop }}"
+    data-tablet="{{ section.settings.slides_tablet }}"
     data-mobile="{{ section.settings.slides_mobile }}"
+    data-pause-hover="{{ section.settings.pause_on_hover }}"
     data-space="{{ section.settings.space_between }}"
     data-arrows="{{ section.settings.show_arrows }}"
     data-pagination="{{ section.settings.pagination_type }}"
@@ -19,7 +21,7 @@
     <div class="swiper-wrapper">
       {%- for block in section.blocks -%}
         {%- if block.type == 'slide' -%}
-          {%- render 'swiper-slide', block: block -%}
+          {%- render 'swiper-slide', block: block, eager: forloop.first -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
@@ -42,15 +44,18 @@
   "settings": [
     { "type": "header", "content": "Behavior" },
     { "type": "checkbox", "id": "autoplay", "label": "Autoplay", "default": true },
+    { "type": "checkbox", "id": "pause_on_hover", "label": "Pause autoplay on hover", "default": true },
     { "type": "range", "id": "autoplay_delay", "label": "Autoplay delay (ms)", "min": 1000, "max": 9500, "step": 500, "default": 4000 },
     { "type": "checkbox", "id": "loop", "label": "Loop slides", "default": true },
     { "type": "range", "id": "speed", "label": "Transition speed (ms)", "min": 200, "max": 2000, "step": 100, "default": 600 },
     { "type": "select", "id": "effect", "label": "Transition effect", "options": [ { "value": "slide", "label": "Slide" }, { "value": "fade", "label": "Fade (one slide at a time)" } ], "default": "slide" },
     { "type": "header", "content": "Layout" },
     { "type": "range", "id": "slides_desktop", "label": "Slides per view (desktop)", "min": 1, "max": 5, "step": 1, "default": 3 },
+    { "type": "range", "id": "slides_tablet", "label": "Slides per view (tablet)", "min": 1, "max": 4, "step": 1, "default": 2 },
     { "type": "range", "id": "slides_mobile", "label": "Slides per view (mobile)", "min": 1, "max": 3, "step": 1, "default": 1 },
     { "type": "range", "id": "space_between", "label": "Space between slides (px)", "min": 0, "max": 60, "step": 5, "default": 15 },
     { "type": "range", "id": "slide_height", "label": "Slide height (px)", "min": 200, "max": 800, "step": 10, "default": 450 },
+    { "type": "range", "id": "slide_height_mobile", "label": "Slide height on mobile (px)", "min": 200, "max": 600, "step": 10, "default": 320 },
     { "type": "range", "id": "corner_radius", "label": "Corner radius (px)", "min": 0, "max": 40, "step": 2, "default": 8 },
     { "type": "range", "id": "padding_top", "label": "Padding top (px)", "min": 0, "max": 100, "step": 4, "default": 24 },
     { "type": "range", "id": "padding_bottom", "label": "Padding bottom (px)", "min": 0, "max": 100, "step": 4, "default": 24 },

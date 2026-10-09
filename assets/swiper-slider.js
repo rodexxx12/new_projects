@@ -35,21 +35,33 @@
 
     var effect = data.effect === 'fade' ? 'fade' : 'slide';
     var desktop = effect === 'fade' ? 1 : numberValue(data.desktop, DEFAULTS.desktop, 1, 10);
+    var tablet = effect === 'fade' ? 1 : numberValue(data.tablet, desktop, 1, 10);
     var mobile = effect === 'fade' ? 1 : numberValue(data.mobile, DEFAULTS.mobile, 1, 10);
+    var maxPerView = Math.max(desktop, tablet, mobile);
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var paginationType = ['bullets', 'fraction', 'progressbar'].indexOf(data.pagination) >= 0
       ? data.pagination
       : 'none';
 
     var options = {
-      loop: boolValue(data.loop, true) && slides > 1,
+      loop: boolValue(data.loop, true) && slides > maxPerView,
       speed: numberValue(data.speed, DEFAULTS.speed, 0, 10000),
       effect: effect,
       fadeEffect: { crossFade: true },
       slidesPerView: mobile,
       spaceBetween: numberValue(data.space, DEFAULTS.space, 0, 200),
-      breakpoints: { 768: { slidesPerView: desktop } },
-      autoplay: boolValue(data.autoplay, false)
-        ? { delay: numberValue(data.delay, DEFAULTS.delay, 500, 60000), disableOnInteraction: false }
+      breakpoints: {
+        750: { slidesPerView: tablet },
+        990: { slidesPerView: desktop }
+      },
+      grabCursor: true,
+      keyboard: { enabled: true },
+      autoplay: (boolValue(data.autoplay, false) && !reduceMotion)
+        ? {
+            delay: numberValue(data.delay, DEFAULTS.delay, 500, 60000),
+            disableOnInteraction: false,
+            pauseOnMouseEnter: boolValue(data.pauseHover, true)
+          }
         : false
     };
 

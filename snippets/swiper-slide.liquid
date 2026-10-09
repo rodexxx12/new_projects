@@ -9,13 +9,17 @@
   assign overlay_opacity = block.settings.overlay_opacity | divided_by: 100.0
   assign text_alignment = block.settings.text_alignment | default: 'left'
   assign text_position = block.settings.text_position | default: 'center'
+  assign img_loading = 'lazy'
+  if eager
+    assign img_loading = 'eager'
+  endif
 -%}
 
 <div
   class="swiper-slide"
   {{ block.shopify_attributes }}
   data-text-alignment="{{ text_alignment }}"
-  style="--slide-text-color: {{ block.settings.text_color | default: section.settings.text_color }}; --slide-overlay-color: {{ block.settings.overlay_color | default: '#000000' }}; --slide-overlay-opacity: {{ overlay_opacity | default: 0.25 }};"
+  style="--slide-text-alignment: {{ text_alignment }}; --slide-text-color: {{ block.settings.text_color | default: section.settings.text_color }}; --slide-overlay-color: {{ block.settings.overlay_color | default: '#000000' }}; --slide-overlay-opacity: {{ overlay_opacity | default: 0.25 }};"
 >
   <div class="swiper-slide__inner">
     {%- if slide_image != blank -%}
@@ -23,7 +27,7 @@
         {%- if mobile_image != blank -%}
           <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 1000 }}">
         {%- endif -%}
-        {{ slide_image | image_url: width: 2400 | image_tag: class: 'swiper-slide__image', loading: 'lazy', widths: '400, 800, 1200, 1600, 2000, 2400' }}
+        {{ slide_image | image_url: width: 2400 | image_tag: class: 'swiper-slide__image', loading: img_loading, widths: '400, 800, 1200, 1600, 2000, 2400' }}
       </picture>
     {%- else -%}
       <div class="swiper-slide__placeholder">
@@ -39,7 +43,7 @@
           <h2 class="swiper-slide__heading">{{ block.settings.heading | escape }}</h2>
         {%- endif -%}
         {%- if block.settings.text != blank -%}
-          <div class="swiper-slide__text">{{ block.settings.text }}</div>
+          <div class="swiper-slide__text">{{ block.settings.text | escape | newline_to_br }}</div>
         {%- endif -%}
         {%- if block.settings.button_label != blank -%}
           {%- if block.settings.button_link != blank -%}

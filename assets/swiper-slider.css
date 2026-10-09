@@ -63,7 +63,7 @@
   inset: 0;
   z-index: 1;
   background: var(--slide-overlay-color, #000);
-  opacity: var(--slide-overlay-opacity, var(--ss-overlay, 0.25));
+  opacity: var(--slide-overlay-opacity, 0.25);
   pointer-events: none;
 }
 
@@ -101,6 +101,12 @@
   background: #fff;
   color: #111;
   text-decoration: none;
+}
+
+@media (max-width: 749px) {
+  .swiper-slider .swiper-slide__inner {
+    height: var(--ss-height-mobile, 320px);
+  }
 }
 
 .swiper-slider .swiper-button-prev,
