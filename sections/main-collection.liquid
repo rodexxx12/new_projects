@@ -90,9 +90,18 @@
     </div>
   </results-list>
 </collection-component>
+{% comment %}
+  Render configuration blocks without adding extra product cards.
+{% endcomment %}
+{% content_for 'blocks' %}
 
 {% schema %}
 {
+  "blocks": [
+    {
+      "type": "collection-card-override"
+    }
+  ],
   "name": "t:names.collection_container",
   "enabled_on": {
     "templates": ["collection"]

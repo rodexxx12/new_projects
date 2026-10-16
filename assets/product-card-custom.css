@@ -68,26 +68,24 @@ product-card.product-card--custom[data-card-override]
    Individual collection product overrides
    ========================================= */
 
+/* Older section overrides only apply when no Card override matched. */
+
 .resource-list__item.collection-card--overridden
-  product-card > .product-card__content {
+  product-card:not([data-card-override]) > .product-card__content {
   background-color:
     var(--collection-card-background, transparent) !important;
-
   border-radius:
     var(--collection-card-radius, 0px) !important;
-
   overflow: hidden;
   box-shadow: none;
 }
 
-/* Soft shadow */
 .resource-list__item.collection-card--overridden[data-override-shadow="soft"]
-  product-card > .product-card__content {
-  box-shadow: 0 5px 16px rgb(0 0 0 / 0.10);
+  product-card:not([data-card-override]) > .product-card__content {
+  box-shadow: 0 5px 16px rgb(0 0 0 / 10%);
 }
 
-/* Strong shadow */
 .resource-list__item.collection-card--overridden[data-override-shadow="strong"]
-  product-card > .product-card__content {
-  box-shadow: 0 12px 30px rgb(0 0 0 / 0.20);
+  product-card:not([data-card-override]) > .product-card__content {
+  box-shadow: 0 12px 30px rgb(0 0 0 / 20%);
 }

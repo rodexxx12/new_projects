@@ -1,19 +1,27 @@
-
-
-{%- doc -%}
-  @param {string} [product_view_context] - Context value passed through to the card snippet.
-  @param {object} [card_override] - Product-specific override block supplied by the parent section.
-{%- enddoc -%}
-
 {% liquid
   assign product = closest.product
--%}
+  assign card_override = nil
+
+  if product.id != blank
+    for candidate in section.blocks
+      if candidate.type == 'collection-card-override'
+        if candidate.settings.enabled != false
+          if candidate.settings.product.id == product.id
+            assign card_override = candidate
+            break
+          endif
+        endif
+      endif
+    endfor
+  endif
+%}
 
 {% capture children %}
   {% content_for 'blocks', closest.product: product %}
 {% endcapture %}
 
 {% render 'product-card',
+  block: block,
   children: children,
   product: product,
   product_view_context: product_view_context,

@@ -11,7 +11,22 @@
   @param {string} [product_view_context] - The context in which the product card is being rendered. Used for standard events.
 {%- enddoc -%}
 
-{% assign block_settings = block.settings %}
+{% liquid
+  assign block_settings = block.settings
+
+  if card_override == blank and product.id != blank
+    for candidate in section.blocks
+      if candidate.type == 'collection-card-override'
+        if candidate.settings.product.id == product.id
+          assign card_override = candidate
+          break
+        endif
+      endif
+    endfor
+  endif
+%}
+
+{{ 'product-card-custom.css' | asset_url | stylesheet_tag }}
 
 {% if request.visual_preview_mode %}
   {% style %}
