@@ -1,0 +1,134 @@
+{% assign card_product = closest.product %}
+
+<div
+  class="ipg-content ipg-content--{{ block.settings.kind }}"
+  {{ block.shopify_attributes }}
+  style="text-align: {{ block.settings.alignment }};"
+>
+  {% case block.settings.kind %}
+    {% when 'image' %}
+      {% if card_product.featured_image != blank %}
+        <a
+          href="{{ card_product.url }}"
+          aria-label="{{ card_product.title | escape }}"
+        >
+          {{
+            card_product.featured_image
+            | image_url: width: 1200
+            | image_tag:
+              loading: 'lazy',
+              widths: '240, 360, 540, 720, 960, 1200',
+              sizes: '(min-width: 750px) 50vw, 100vw',
+              class: 'ipg-content__image'
+          }}
+        </a>
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'ipg-content__placeholder' }}
+      {% endif %}
+
+    {% when 'title' %}
+      <h3 class="ipg-content__title">
+        {% if card_product != blank %}
+          <a href="{{ card_product.url }}">
+            {{ card_product.title | escape }}
+          </a>
+        {% else %}
+          Select a product
+        {% endif %}
+      </h3>
+
+    {% when 'price' %}
+      {% if card_product != blank %}
+        <div class="ipg-content__price">
+          {% if card_product.price_varies %}From {% endif %}
+          {{ card_product.price | money }}
+        </div>
+      {% endif %}
+
+    {% when 'text' %}
+      <div class="ipg-content__text">
+        {{ block.settings.text }}
+      </div>
+
+    {% when 'button' %}
+      {% if card_product != blank %}
+        <a class="ipg-content__button" href="{{ card_product.url }}">
+          {{ block.settings.button_label | escape }}
+        </a>
+      {% endif %}
+  {% endcase %}
+</div>
+
+{% schema %}
+{
+  "name": "Product content",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "kind",
+      "label": "Content type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "title",
+          "label": "Title"
+        },
+        {
+          "value": "price",
+          "label": "Price"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        },
+        {
+          "value": "button",
+          "label": "Button"
+        }
+      ],
+      "default": "text"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Custom text",
+      "default": "<p>Add your product details here.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View product"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product content"
+    }
+  ]
+}
+{% endschema %}

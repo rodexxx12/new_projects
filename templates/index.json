@@ -249,7 +249,7 @@
             "button_link": "/collections/all",
             "text_alignment": "left",
             "text_position": "center",
-            "text_color": "#ffffff",
+            "text_color": "#FFFFFF",
             "overlay_color": "#000000",
             "overlay_opacity": 25
           }
@@ -257,39 +257,25 @@
         "slide_2": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/YOUR-IMAGE-2.jpg",
             "heading": "Best sellers",
-            "text": "",
             "button_label": "Browse",
-            "button_link": "/collections/all",
-            "text_alignment": "left",
-            "text_position": "center",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 25
+            "button_link": "/collections/all"
           }
         },
         "slide_3": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/YOUR-IMAGE-3.jpg",
             "heading": "On sale",
-            "text": "",
             "button_label": "View deals",
-            "button_link": "/collections/all",
-            "text_alignment": "left",
-            "text_position": "center",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 25
+            "button_link": "/collections/all"
           }
         }
       },
-      "block_order": [
-        "slide_1",
-        "slide_2",
-        "slide_3"
-      ],
+      "block_order": ["slide_1", "slide_2", "slide_3"],
       "settings": {
-        "autoplay": false,
+        "autoplay": true,
         "pause_on_hover": true,
         "autoplay_delay": 4000,
         "loop": true,
@@ -311,8 +297,7 @@
         "pagination_type": "bullets",
         "arrow_color": "#ffffff",
         "dot_color": "#ffffff",
-        "text_color": "#ffffff",
-        "overlay": 25
+        "text_color": "#ffffff"
       }
     },
     "product_list_fa6P9H": {

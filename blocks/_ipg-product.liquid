@@ -1,0 +1,167 @@
+{% assign card_product = block.settings.product %}
+
+<div
+  class="ipg-card"
+  data-hover="{{ block.settings.hover }}"
+  {{ block.shopify_attributes }}
+  style="
+    --ipg-card-bg: {{ block.settings.background }};
+    --ipg-card-color: {{ block.settings.text_color }};
+    --ipg-card-border: {{ block.settings.border_color }};
+    --ipg-card-border-width: {{ block.settings.border_width }}px;
+    --ipg-card-radius: {{ block.settings.radius }}px;
+    --ipg-card-padding: {{ block.settings.padding }}px;
+    --ipg-card-gap: {{ block.settings.gap }}px;
+    --ipg-card-shadow: {{ block.settings.shadow }};
+  "
+>
+  {% content_for 'blocks', closest.product: card_product %}
+</div>
+
+{% schema %}
+{
+  "name": "Independent product",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "ipg-content"
+    }
+  ],
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#242424"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#DDDDDD"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "default": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Content gap",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "shadow",
+      "label": "Shadow",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "0px 4px 12px #00000014",
+          "label": "Soft"
+        },
+        {
+          "value": "0px 8px 24px #00000026",
+          "label": "Strong"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "hover",
+      "label": "Hover effect",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "lift",
+          "label": "Lift"
+        },
+        {
+          "value": "shadow",
+          "label": "Shadow"
+        }
+      ],
+      "default": "none"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Independent product",
+      "blocks": [
+        {
+          "type": "ipg-content",
+          "settings": {
+            "kind": "image"
+          }
+        },
+        {
+          "type": "ipg-content",
+          "settings": {
+            "kind": "title"
+          }
+        },
+        {
+          "type": "ipg-content",
+          "settings": {
+            "kind": "price"
+          }
+        },
+        {
+          "type": "ipg-content",
+          "settings": {
+            "kind": "button"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
