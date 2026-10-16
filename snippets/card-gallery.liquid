@@ -11,6 +11,21 @@
 {% liquid
   assign product = closest.product
   assign block_settings = block.settings
+  assign media_override = nil
+  assign media_image_ratio = block_settings.image_ratio
+
+  if product != blank
+    for candidate in section.blocks
+      if candidate.type == 'collection-card-override' and candidate.settings.product.id == product.id
+        if candidate.settings.media_override_enabled
+          assign media_override = candidate.settings
+          assign media_image_ratio = media_override.media_image_ratio
+        endif
+        break
+      endif
+    endfor
+  endif
+
   assign image_sizes = '(min-width: 750px) 50vw, 100vw'
 
   # Check if product has badges and determine position
@@ -49,7 +64,7 @@
   endif
 
   assign ratio = '1'
-  case block_settings.image_ratio
+  case media_image_ratio
     when 'landscape'
       assign ratio = '16 / 9'
     when 'portrait'
@@ -60,7 +75,7 @@
       assign ratio = product.featured_media.preview_image.aspect_ratio | default: '1'
   endcase
 
-  if block_settings.image_ratio == 'adapt' and block_settings.constrain_to_viewport
+  if media_image_ratio == 'adapt' and block_settings.constrain_to_viewport
     if block_settings.constrain_to_viewport != ''
       assign constrain_to_viewport = true
       assign media_fit = block_settings.constrain_to_viewport
@@ -75,6 +90,20 @@
     {% render 'border-override', settings: block_settings %}
     {% render 'spacing-style', settings: block_settings %}
     --gallery-aspect-ratio: {{ ratio }};
+
+    {% if media_override != blank %}
+      --border-style: {{ media_override.media_border }};
+      --border-width: {{ media_override.media_border_width }}px;
+      --border-color: {{ media_override.media_border_color }};
+      --border-radius: {{ media_override.media_radius }}px;
+
+      --padding-block-start: {{ media_override.media_padding_top }}px;
+      --padding-block-end: {{ media_override.media_padding_bottom }}px;
+      --padding-inline-start: {{ media_override.media_padding_left }}px;
+      --padding-inline-end: {{ media_override.media_padding_right }}px;
+
+      overflow: clip;
+    {% endif %}
   "
   data-product-id="{{ product.id }}"
   {% if settings.show_second_image_on_hover and product.media.size > 1 %}
@@ -84,7 +113,7 @@
   {% if settings.transition_to_main_product %}
     data-view-transition-to-main-product
   {% endif %}
-  data-image-ratio="{{ block_settings.image_ratio }}"
+  data-image-ratio="{{ media_image_ratio }}"
   {{ block.shopify_attributes }}
 >
   {%- if product.media.size > 0 -%}

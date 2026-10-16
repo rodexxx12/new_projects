@@ -1,6 +1,6 @@
 {% comment %}
   Configuration-only block.
-  It does not render a second product card.
+  Does not render an additional product card.
 {% endcomment %}
 
 {% schema %}
@@ -21,7 +21,7 @@
     {
       "type": "range",
       "id": "border_radius",
-      "label": "Corner radius",
+      "label": "Card corner radius",
       "min": 0,
       "max": 32,
       "step": 1,
@@ -31,13 +31,151 @@
     {
       "type": "select",
       "id": "shadow",
-      "label": "Shadow",
+      "label": "Card shadow",
       "options": [
-        { "value": "none", "label": "None" },
-        { "value": "soft", "label": "Soft" },
-        { "value": "strong", "label": "Strong" }
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "soft",
+          "label": "Soft"
+        },
+        {
+          "value": "strong",
+          "label": "Strong"
+        }
       ],
       "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "paragraph",
+      "content": "Displays media from the selected parent product."
+    },
+    {
+      "type": "checkbox",
+      "id": "media_override_enabled",
+      "label": "Override media settings",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "media_image_ratio",
+      "label": "Aspect ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Auto"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape"
+        }
+      ],
+      "default": "adapt",
+      "info": "Adjusted in some layouts."
+    },
+    {
+      "type": "header",
+      "content": "Media borders"
+    },
+    {
+      "type": "select",
+      "id": "media_border",
+      "label": "Style",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "solid",
+          "label": "Solid"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "media_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "media_border_color",
+      "label": "Border color",
+      "default": "#DDDDDD"
+    },
+    {
+      "type": "range",
+      "id": "media_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Media padding"
+    },
+    {
+      "type": "range",
+      "id": "media_padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "media_padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "media_padding_left",
+      "label": "Left",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "media_padding_right",
+      "label": "Right",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0
     }
   ],
   "presets": [
