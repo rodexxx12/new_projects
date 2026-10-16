@@ -1,0 +1,56 @@
+<div
+  class="ipg-card"
+  data-hover="{{ hover | default: 'none' }}"
+>
+  <div class="ipg-content ipg-content--image">
+    <a
+      href="{{ card_product.url }}"
+      aria-label="{{ card_product.title | escape }}"
+    >
+      {% if card_product.featured_image != blank %}
+        {% capture image_sizes %}
+          (min-width: 750px) calc(100vw / {{ columns }}), 100vw
+        {% endcapture %}
+
+        {{
+          card_product.featured_image
+          | image_url: width: 1200
+          | image_tag:
+            loading: 'lazy',
+            widths: '240, 360, 540, 720, 960, 1200',
+            sizes: image_sizes,
+            class: 'ipg-content__image'
+        }}
+      {% else %}
+        {{
+          'product-1'
+          | placeholder_svg_tag: 'ipg-content__placeholder'
+        }}
+      {% endif %}
+    </a>
+  </div>
+
+  <div class="ipg-content ipg-content--title">
+    <h3 class="ipg-content__title">
+      <a href="{{ card_product.url }}">
+        {{ card_product.title | escape }}
+      </a>
+    </h3>
+  </div>
+
+  <div class="ipg-content ipg-content--price">
+    <div class="ipg-content__price">
+      {% if card_product.price_varies %}From {% endif %}
+      {{ card_product.price | money }}
+    </div>
+  </div>
+
+  <div class="ipg-content ipg-content--button">
+    <a
+      class="ipg-content__button"
+      href="{{ card_product.url }}"
+    >
+      View product
+    </a>
+  </div>
+</div>

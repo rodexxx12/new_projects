@@ -1,10 +1,24 @@
-{% assign card_product = block.settings.product %}
+{% liquid
+  assign selected_products = block.settings.products
+
+  if selected_products == blank and block.settings.collection != blank
+    assign selected_products = block.settings.collection.products
+  endif
+
+  assign card_product = block.settings.product
+%}
 
 <div
-  class="ipg-card"
-  data-hover="{{ block.settings.hover }}"
+  class="ipg-group{% if selected_products != blank %} ipg-group--multiple{% endif %}"
+  data-width="{{ block.settings.width }}"
+  data-layout="{{ block.settings.layout }}"
+  data-mobile-carousel="{{ block.settings.mobile_carousel }}"
   {{ block.shopify_attributes }}
   style="
+    --group-columns: {{ block.settings.columns }};
+    --mobile-columns: {{ block.settings.mobile_columns }};
+    --horizontal-gap: {{ block.settings.horizontal_gap }}px;
+    --vertical-gap: {{ block.settings.vertical_gap }}px;
     --ipg-card-bg: {{ block.settings.background }};
     --ipg-card-color: {{ block.settings.text_color }};
     --ipg-card-border: {{ block.settings.border_color }};
@@ -13,10 +27,114 @@
     --ipg-card-padding: {{ block.settings.padding }}px;
     --ipg-card-gap: {{ block.settings.gap }}px;
     --ipg-card-shadow: {{ block.settings.shadow }};
+    gap: {{ block.settings.group_gap }}px;
+    text-align: {{ block.settings.alignment }};
+    background: {{ block.settings.group_background | default: 'transparent' }};
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    {{ block.settings.custom_css | escape }}
   "
 >
-  {% content_for 'blocks', closest.product: card_product %}
+  {% if block.settings.heading != blank %}
+    <h2 class="ipg-group__heading">
+      {{ block.settings.heading | escape }}
+    </h2>
+  {% endif %}
+
+  {% if selected_products != blank %}
+    <div class="ipg-group__grid">
+      {% for item in selected_products limit: block.settings.product_count %}
+        {% render 'ipg-batch-card',
+          card_product: item,
+          columns: block.settings.columns,
+          hover: block.settings.hover
+        %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div
+      class="ipg-card"
+      data-hover="{{ block.settings.hover }}"
+    >
+      {% content_for 'blocks', closest.product: card_product %}
+    </div>
+  {% endif %}
 </div>
+
+{% stylesheet %}
+  .ipg .ipg-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .ipg .ipg-group--multiple {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .ipg .ipg-group[data-width="page"] {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+  }
+
+  .ipg:has(.ipg-group--multiple[data-width="full"]) {
+    max-width: none;
+  }
+
+  .ipg .ipg-group__heading {
+    margin: 0;
+    color: inherit;
+  }
+
+  .ipg .ipg-group__grid {
+    display: grid;
+    grid-template-columns:
+      repeat(var(--group-columns), minmax(0, 1fr));
+    column-gap: var(--horizontal-gap);
+    row-gap: var(--vertical-gap);
+  }
+
+  .ipg .ipg-group[data-layout="carousel"] .ipg-group__grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns:
+      calc(
+        (100% - (var(--group-columns) - 1) * var(--horizontal-gap))
+        / var(--group-columns)
+      );
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 12px;
+  }
+
+  .ipg .ipg-group__grid > .ipg-card {
+    scroll-snap-align: start;
+  }
+
+  @media (max-width: 749px) {
+    .ipg .ipg-group__grid {
+      grid-template-columns:
+        repeat(var(--mobile-columns), minmax(0, 1fr));
+    }
+
+    .ipg .ipg-group[data-layout="carousel"] .ipg-group__grid,
+    .ipg .ipg-group[data-mobile-carousel="true"] .ipg-group__grid {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns:
+        calc(
+          (100% - (var(--mobile-columns) - 1) * var(--horizontal-gap))
+          / var(--mobile-columns)
+        );
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 12px;
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
@@ -29,14 +147,168 @@
   ],
   "settings": [
     {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Select multiple products",
+      "limit": 50,
+      "info": "Selected products override the collection. Clear both to use the single product below."
+    },
+    {
       "type": "product",
       "id": "product",
-      "label": "Product"
+      "label": "Single product"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Type",
+      "options": [
+        { "value": "grid", "label": "Grid" },
+        { "value": "carousel", "label": "Carousel" }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_carousel",
+      "label": "Carousel on mobile",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "product_count",
+      "label": "Product count",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Mobile columns",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "horizontal_gap",
+      "label": "Horizontal gap",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "vertical_gap",
+      "label": "Vertical gap",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Group layout"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        { "value": "page", "label": "Page" },
+        { "value": "full", "label": "Full" }
+      ],
+      "default": "page"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "group_gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "group_background",
+      "label": "Background color",
+      "info": "Leave empty to use the section background."
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Card appearance"
     },
     {
       "type": "color",
       "id": "background",
-      "label": "Background",
+      "label": "Card background",
       "default": "#FFFFFF"
     },
     {
@@ -58,8 +330,8 @@
       "min": 0,
       "max": 8,
       "step": 1,
-      "default": 1,
-      "unit": "px"
+      "unit": "px",
+      "default": 1
     },
     {
       "type": "range",
@@ -68,46 +340,37 @@
       "min": 0,
       "max": 60,
       "step": 2,
-      "default": 16,
-      "unit": "px"
+      "unit": "px",
+      "default": 16
     },
     {
       "type": "range",
       "id": "padding",
-      "label": "Padding",
+      "label": "Card padding",
       "min": 0,
       "max": 60,
       "step": 2,
-      "default": 20,
-      "unit": "px"
+      "unit": "px",
+      "default": 20
     },
     {
       "type": "range",
       "id": "gap",
-      "label": "Content gap",
+      "label": "Card content gap",
       "min": 0,
       "max": 40,
       "step": 2,
-      "default": 12,
-      "unit": "px"
+      "unit": "px",
+      "default": 12
     },
     {
       "type": "select",
       "id": "shadow",
       "label": "Shadow",
       "options": [
-        {
-          "value": "none",
-          "label": "None"
-        },
-        {
-          "value": "0px 4px 12px #00000014",
-          "label": "Soft"
-        },
-        {
-          "value": "0px 8px 24px #00000026",
-          "label": "Strong"
-        }
+        { "value": "none", "label": "None" },
+        { "value": "0px 4px 12px #00000014", "label": "Soft" },
+        { "value": "0px 8px 24px #00000026", "label": "Strong" }
       ],
       "default": "none"
     },
@@ -116,20 +379,21 @@
       "id": "hover",
       "label": "Hover effect",
       "options": [
-        {
-          "value": "none",
-          "label": "None"
-        },
-        {
-          "value": "lift",
-          "label": "Lift"
-        },
-        {
-          "value": "shadow",
-          "label": "Shadow"
-        }
+        { "value": "none", "label": "None" },
+        { "value": "lift", "label": "Lift" },
+        { "value": "shadow", "label": "Shadow" }
       ],
       "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "Custom CSS"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "CSS declarations",
+      "info": "Applies to this group. Enter declarations only, such as font-size: 18px; without selectors or braces."
     }
   ],
   "presets": [
@@ -138,27 +402,19 @@
       "blocks": [
         {
           "type": "ipg-content",
-          "settings": {
-            "kind": "image"
-          }
+          "settings": { "kind": "image" }
         },
         {
           "type": "ipg-content",
-          "settings": {
-            "kind": "title"
-          }
+          "settings": { "kind": "title" }
         },
         {
           "type": "ipg-content",
-          "settings": {
-            "kind": "price"
-          }
+          "settings": { "kind": "price" }
         },
         {
           "type": "ipg-content",
-          "settings": {
-            "kind": "button"
-          }
+          "settings": { "kind": "button" }
         }
       ]
     }
