@@ -318,6 +318,27 @@
     "product_list_AXC3ez": {
       "type": "product-list",
       "blocks": {
+        "collection_card_override_cxyHaq": {
+          "type": "collection-card-override",
+          "name": "Card override",
+          "settings": {
+            "product": "asta",
+            "background_color": "#CB5454",
+            "border_radius": 0,
+            "shadow": "none",
+            "media_override_enabled": false,
+            "media_image_ratio": "adapt",
+            "media_border": "none",
+            "media_border_width": 1,
+            "media_border_color": "#DDDDDD",
+            "media_radius": 0,
+            "media_padding_top": 0,
+            "media_padding_bottom": 0,
+            "media_padding_left": 0,
+            "media_padding_right": 0
+          },
+          "blocks": {}
+        },
         "static-header": {
           "type": "_product-list-content",
           "name": "t:names.header",
@@ -471,7 +492,7 @@
                 "show_tax_info": false,
                 "type_preset": "h6",
                 "width": "100%",
-                "alignment": "left",
+                "alignment": "center",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
@@ -493,6 +514,9 @@
           ]
         }
       },
+      "block_order": [
+        "collection_card_override_cxyHaq"
+      ],
       "name": "t:names.products_grid",
       "settings": {
         "collection": "black-clover",
