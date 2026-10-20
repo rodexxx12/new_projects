@@ -14,18 +14,6 @@
   assign media_override = nil
   assign media_image_ratio = block_settings.image_ratio
 
-  if product != blank
-    for candidate in section.blocks
-      if candidate.type == 'collection-card-override' and candidate.settings.product.id == product.id
-        if candidate.settings.media_override_enabled
-          assign media_override = candidate.settings
-          assign media_image_ratio = media_override.media_image_ratio
-        endif
-        break
-      endif
-    endfor
-  endif
-
   assign image_sizes = '(min-width: 750px) 50vw, 100vw'
 
   # Check if product has badges and determine position

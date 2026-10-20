@@ -1,7 +1,100 @@
 {% comment %}
-  Configuration-only block.
-  Does not render an additional product card.
+  Individual Product Card Override
+  Applies settings only to the selected product
+  inside this instance of Product list.
 {% endcomment %}
+
+{% liquid
+  assign override_product = block.settings.product
+  assign override_ratio = '1'
+
+  if block.settings.media_image_ratio == 'landscape'
+    assign override_ratio = '16 / 9'
+  elsif block.settings.media_image_ratio == 'portrait'
+    assign override_ratio = '4 / 5'
+  elsif block.settings.media_image_ratio == 'square'
+    assign override_ratio = '1'
+  elsif block.settings.media_image_ratio == 'adapt'
+    assign override_ratio = override_product.featured_media.preview_image.aspect_ratio | default: 1
+  endif
+%}
+
+{% if override_product != blank %}
+  {% capture card_selector %}
+    #shopify-section-{{ section.id }}
+    product-card[data-product-id="{{ override_product.id }}"]
+  {% endcapture %}
+
+  <style>
+    /* Individual product card appearance */
+
+    {{ card_selector }} > .product-card__content {
+      {% if block.settings.background_color != blank %}
+        background-color:
+          {{ block.settings.background_color }} !important;
+      {% endif %}
+
+      border-radius:
+        {{ block.settings.border_radius }}px !important;
+
+      overflow: hidden;
+
+      {% case block.settings.shadow %}
+        {% when 'soft' %}
+          box-shadow:
+            0 5px 16px rgb(0 0 0 / 0.10) !important;
+        {% when 'strong' %}
+          box-shadow:
+            0 12px 30px rgb(0 0 0 / 0.20) !important;
+        {% else %}
+          box-shadow: none !important;
+      {% endcase %}
+    }
+
+    /* Individual media appearance */
+
+    {% if block.settings.media_override_enabled %}
+      {{ card_selector }} .card-gallery {
+        --gallery-aspect-ratio:
+          {{ override_ratio }} !important;
+
+        --border-style:
+          {{ block.settings.media_border }} !important;
+
+        --border-width:
+          {{ block.settings.media_border_width }}px !important;
+
+        --border-color:
+          {{ block.settings.media_border_color }} !important;
+
+        --border-radius:
+          {{ block.settings.media_radius }}px !important;
+
+        --padding-block-start:
+          {{ block.settings.media_padding_top }}px !important;
+
+        --padding-block-end:
+          {{ block.settings.media_padding_bottom }}px !important;
+
+        --padding-inline-start:
+          {{ block.settings.media_padding_left }}px !important;
+
+        --padding-inline-end:
+          {{ block.settings.media_padding_right }}px !important;
+
+        overflow: clip;
+      }
+    {% endif %}
+  </style>
+
+  {% if request.design_mode %}
+    <span
+      hidden
+      data-override-product="{{ override_product.id }}"
+      {{ block.shopify_attributes }}
+    ></span>
+  {% endif %}
+{% endif %}
 
 {% schema %}
 {
