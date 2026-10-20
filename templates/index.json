@@ -318,22 +318,22 @@
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
-        "collection_card_override_RmfEfe": {
+        "collection_card_override_p7bAyx": {
           "type": "collection-card-override",
           "name": "Card override",
           "settings": {
-            "product": "{{ metaobjects.anime[\"that-time-i-got-reincarnated-as-a-slime\"].characters.value }}",
+            "product": "asta",
             "background_color": "",
-            "border_radius": 27,
-            "shadow": "none",
+            "border_radius": 32,
+            "shadow": "strong",
             "media_override_enabled": true,
             "media_image_ratio": "adapt",
-            "media_border": "none",
-            "media_border_width": 1,
+            "media_border": "solid",
+            "media_border_width": 0,
             "media_border_color": "#DDDDDD",
-            "media_radius": 0,
-            "media_padding_top": 40,
-            "media_padding_bottom": 42,
+            "media_radius": 41,
+            "media_padding_top": 21,
+            "media_padding_bottom": 26,
             "media_padding_left": 28,
             "media_padding_right": 32
           },
@@ -441,6 +441,32 @@
             "padding-inline-end": 0
           },
           "blocks": {
+            "text_cM74zk": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "product_card_gallery_677WP3": {
               "type": "_product-card-gallery",
               "name": "t:names.product_card_media",
@@ -482,40 +508,17 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "text_color": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
             }
           },
           "block_order": [
+            "text_cM74zk",
             "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
+            "product_title_YXxMTj"
           ]
         }
       },
       "block_order": [
-        "collection_card_override_RmfEfe"
+        "collection_card_override_p7bAyx"
       ],
       "name": "t:names.product_list",
       "settings": {
