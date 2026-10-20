@@ -24,6 +24,7 @@
     #shopify-section-{{ section.id }}
     product-card[data-product-id="{{ override_product.id }}"]
   {% endcapture %}
+  {% assign card_selector = card_selector | strip %}
 
   <style>
     /* Individual product card appearance */
@@ -49,6 +50,122 @@
         {% else %}
           box-shadow: none !important;
       {% endcase %}
+    }
+
+    /* Individual product visibility */
+
+    {% unless block.settings.show_price %}
+      {{ card_selector }} product-price {
+        display: none !important;
+      }
+    {% endunless %}
+
+    {% unless block.settings.show_title %}
+      {{ card_selector }} [ref="productTitleLink"],
+      {{ card_selector }} .product-grid-view-zoom-out--details {
+        display: none !important;
+      }
+    {% endunless %}
+
+    {% unless block.settings.show_media %}
+      {{ card_selector }} .card-gallery {
+        display: none !important;
+      }
+    {% endunless %}
+
+    {% unless block.settings.show_quick_add %}
+      {{ card_selector }} quick-add-component {
+        display: none !important;
+      }
+    {% endunless %}
+
+    {% unless block.settings.show_badges %}
+      {{ card_selector }} .product-badges {
+        display: none !important;
+      }
+    {% endunless %}
+
+    {% unless block.settings.show_swatches %}
+      {{ card_selector }} product-swatches,
+      {{ card_selector }} swatches-variant-picker-component {
+        display: none !important;
+      }
+    {% endunless %}
+
+    {% unless block.settings.show_reviews %}
+      {{ card_selector }} .rating-wrapper {
+        display: none !important;
+      }
+    {% endunless %}
+
+    {% unless block.settings.show_sku %}
+      {{ card_selector }} product-sku-component {
+        display: none !important;
+      }
+    {% endunless %}
+
+    {% unless block.settings.show_buy_buttons %}
+      {{ card_selector }} .buy-buttons-block {
+        display: none !important;
+      }
+    {% endunless %}
+
+    /* Individual card border */
+
+    {% if block.settings.override_card_border %}
+      {{ card_selector }} > .product-card__content {
+        border-style:
+          {{ block.settings.card_border_style }} !important;
+
+        border-width:
+          {{ block.settings.card_border_width }}px !important;
+
+        border-color:
+          {{ block.settings.card_border_color }} !important;
+      }
+    {% endif %}
+
+    /* Individual card padding */
+
+    {% if block.settings.override_card_padding %}
+      {{ card_selector }} > .product-card__content {
+        padding-block-start:
+          {{ block.settings.card_padding_top }}px !important;
+
+        padding-block-end:
+          {{ block.settings.card_padding_bottom }}px !important;
+
+        padding-inline-start:
+          {{ block.settings.card_padding_left }}px !important;
+
+        padding-inline-end:
+          {{ block.settings.card_padding_right }}px !important;
+      }
+    {% endif %}
+
+    /* Individual hover animation */
+
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+      {% if block.settings.hover_effect == 'lift' %}
+        {{ card_selector }} {
+          transition: transform 200ms ease;
+        }
+
+        {{ card_selector }}:hover {
+          transform: translateY(-5px);
+        }
+
+      {% elsif block.settings.hover_effect == 'scale' %}
+        {{ card_selector }} {
+          transition: transform 200ms ease;
+        }
+
+        {{ card_selector }}:hover {
+          transform: scale(1.02);
+        }
+      {% endif %}
+
     }
 
     /* Individual media appearance */
@@ -105,6 +222,173 @@
       "type": "product",
       "id": "product",
       "label": "Product to customize"
+    },
+    {
+      "type": "header",
+      "content": "Visibility for this product"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show price",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_media",
+      "label": "Show product media",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_add",
+      "label": "Show quick add",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badges",
+      "label": "Show product badges",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_swatches",
+      "label": "Show swatches",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "label": "Show reviews",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sku",
+      "label": "Show SKU",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_buy_buttons",
+      "label": "Show buy buttons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Individual card border"
+    },
+    {
+      "type": "checkbox",
+      "id": "override_card_border",
+      "label": "Override card border",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "card_border_style",
+      "label": "Border style",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "solid", "label": "Solid" },
+        { "value": "dashed", "label": "Dashed" }
+      ],
+      "default": "solid",
+      "visible_if": "{{ block.settings.override_card_border }}"
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "default": 1,
+      "visible_if": "{{ block.settings.override_card_border }}"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Border color",
+      "default": "#DDDDDD",
+      "visible_if": "{{ block.settings.override_card_border }}"
+    },
+    {
+      "type": "header",
+      "content": "Individual card padding"
+    },
+    {
+      "type": "checkbox",
+      "id": "override_card_padding",
+      "label": "Override card padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.override_card_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.override_card_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_left",
+      "label": "Left",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.override_card_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_right",
+      "label": "Right",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.override_card_padding }}"
+    },
+    {
+      "type": "header",
+      "content": "Hover effect"
+    },
+    {
+      "type": "select",
+      "id": "hover_effect",
+      "label": "Effect",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "lift", "label": "Lift" },
+        { "value": "scale", "label": "Scale" }
+      ],
+      "default": "none"
     },
     {
       "type": "color",
